@@ -1,0 +1,8 @@
+{
+    "name": "secret cats",
+    "login": {
+        "url": "www.secretcats.local",
+        "usr": "topcat",
+        "pwd": "secret123"
+    }
+}

@@ -1,0 +1,58 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.body {
+  background-color: teal;
+}
+.showimport {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1024px;
+  min-width: 640px;
+}
+.lbl {
+  width: 8rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  background-color: lightgrey;
+  text-align: center;
+  cursor: pointer;
+}
+#myfile {
+  display: none;
+}
+.preview {
+  margin-top: 15px;
+  width: 100%;
+  border-radius: 1rem;
+  border: 2px solid black;
+  background-color: lightgrey;
+  padding: 0.5rem;
+
+  overflow-y: auto;
+  scrollbar-color: yellow darkblue;
+  scrollbar-width: thin;
+}
+.info {
+  text-align: center;
+  background-color: yellow;
+  border: 2px solid black;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+.show_data {
+  max-width: 1024px;
+  min-width: 640px;
+  background-color: black;
+  color: green;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin: 0.5rem auto;
+}

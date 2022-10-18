@@ -1,24 +1,28 @@
 <body class="body">
   <main class="main">
-    <!-- begin popup box -->
+    <!-- begin dialog -->
     <dialog id="myDialog">
-      <button class="btn__remove__popup" id="hideDialog">&times</button>
-      <form id="form0">
-        <div>
-          <label class="label">title</label>
-          <input type="text" class="input_text" id="popup__title" required>
-        </div>
-        <div>
-          <label class="label">message</label>
-          <textarea class="input_text" id="popup__message" rows="13" cols="43" required></textarea>
-        </div>
-        <div class="dt" id="popup__dts"></div>
-        <div>
-          <button type="submit" class="btn__post" id="popup__btn__post">update message</button>
-        </div>
-      </form>
+      <section class="show_dialog popup_dialog">
+        <form class="form0" id="form0">
+          <div class="btn_remove_position">
+            <div class="btn__remove" id="hideDialog">+</div>
+          </div>
+          <div>
+            <label class="label">title</label>
+            <input type="text" class="input_text" id="popup__title" required>
+          </div>
+          <div>
+            <label class="label">message</label>
+            <textarea class="input_text" id="popup__message" rows="13" cols="43" required></textarea>
+          </div>
+          <div class="dt" id="popup__dts"></div>
+          <div>
+            <button type="submit" class="btn__post" id="popup__btn__post">update message</button>
+          </div>
+        </form>
+      </section>
     </dialog>
-    <!-- end popup box -->
+    <!-- end dialog -->
     <!-- begin left section -->
     <section class="bgc_style_left">
       <form id="form1">

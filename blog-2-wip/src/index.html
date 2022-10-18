@@ -1,0 +1,53 @@
+<body class="body">
+  <main class="main">
+    <!-- begin popup box -->
+    <dialog id="myDialog">
+      <button class="btn__remove__popup" id="hideDialog">&times</button>
+      <form id="form0">
+        <div>
+          <label class="label">title</label>
+          <input type="text" class="input_text" id="popup__title" required>
+        </div>
+        <div>
+          <label class="label">message</label>
+          <textarea class="input_text" id="popup__message" rows="13" cols="43" required></textarea>
+        </div>
+        <div class="dt" id="popup__dts"></div>
+        <div>
+          <button type="submit" class="btn__post" id="popup__btn__post">update message</button>
+        </div>
+      </form>
+    </dialog>
+    <!-- end popup box -->
+    <!-- begin left section -->
+    <section class="bgc_style_left">
+      <form id="form1">
+        <div>
+          <label for="fld__title" class="label">title</label>
+          <input type="text" class="input_text" id="fld__title" required>
+        </div>
+        <div>
+          <label for="fld__message" class="label">message</label>
+          <textarea class="input_text" id="fld__message" rows="13" cols="43" required></textarea>
+        </div>
+        <div id="dts"></div>
+        <div>
+          <button type="submit" class="btn__post" id="btn__post">post message</button>
+        </div>
+      </form>
+    </section>
+    <!-- end left section -->
+    <!-- begin right section -->
+    <section class="bgc_style_right">
+      <form id="form2">
+        <div class="search">
+          <label for="searchbox" class="label">search</label>
+          <input type="text" id="searchbox" class="searchbox" placeholder="search text">
+        </div>
+      </form>
+      <div class="messages__header">messages</div>
+      <section class="txt" id="txt"></section>
+    </section>
+    <!-- end right section -->
+  </main>
+</body>

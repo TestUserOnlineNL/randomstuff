@@ -1,3 +1,12 @@
+dialog {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+h1 {
+  text-align: center;
+}
 *,
 *:before,
 *:after {
@@ -124,6 +133,7 @@
   text-transform: capitalize;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.4rem;
 }
 .btn__remove {
   width: 1.5rem;
@@ -149,6 +159,10 @@
 .artikel {
   color: green;
   text-transform: lowercase;
+}
+.art_datum {
+  font-size: 0.7rem;
+  text-align: right;
 }
 .popup_dialog {
   position: fixed;

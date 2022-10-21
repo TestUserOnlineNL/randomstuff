@@ -74,35 +74,39 @@ const showSearch = (a) => {
   a.forEach((b) => {
     const sec = document.createElement("section");
     const tit = document.createElement("div");
-    const txt = document.createElement("artikel");
+    const txt = document.createElement("article");
+    const mdt = document.createElement("div");
     tit.innerText = `${b.titel.toLowerCase()}`;
     tit.classList.add("titel");
     txt.innerText = `${b.artikel.toLowerCase()}`;
     txt.classList.add("artikel");
+    mdt.innerText = `${b.datum}`;
+    mdt.classList.add("art_datum");
     sec.appendChild(tit);
     sec.appendChild(txt);
+    sec.appendChild(mdt);
     sec.classList.add("sec_color");
-    tit.appendChild(removeButton());
+    tit.appendChild(removeButton(b.datum));
     openArticle(sec);
     return showText.appendChild(sec);
   });
 };
 
 // remove button
-const removeButton = (_) => {
+const removeButton = (datum) => {
   const btnRemove = document.createElement("div");
   btnRemove.innerText = "+";
   btnRemove.classList.add("btn__remove");
   btnRemove.addEventListener("click", (event) => {
     event.stopPropagation();
-    removeData();
+    removeData(datum);
   });
   return btnRemove;
 };
 
 // remove data
-const removeData = (_) => {
-  console.log("clicked & removed!");
+const removeData = (datum) => {
+  console.log(`messsage of date: ${datum} clicked & removed from database!`);
 };
 
 // search

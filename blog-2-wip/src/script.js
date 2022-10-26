@@ -87,7 +87,7 @@ const showSearch = (a) => {
     sec.appendChild(mdt);
     sec.classList.add("sec_color");
     tit.appendChild(removeButton(b.datum));
-    openArticle(sec);
+    openArticle(sec, b);
     return showText.appendChild(sec);
   });
 };
@@ -121,14 +121,49 @@ typedText.addEventListener("keyup", (e) => {
 // open and close article
 const myDialog = document.querySelector("#myDialog");
 const closeArticle = document.querySelector("#hideDialog");
-// function open aticle
-const openArticle = (item) => {
+
+// function open article
+const openArticle = (item, b) => {
+  const popup_titel = document.getElementById("popup__title");
+  const popup_artikel = document.getElementById("popup__message");
+  const popup_datum = document.getElementById("popup__dts");
+
   item.addEventListener("click", () => {
+    popup_titel.value = b.titel;
+    popup_artikel.value = b.artikel;
+    popup_datum.innerText = b.datum === undefined ? dateTimestamp() : b.datum;
     myDialog.show();
   });
 };
 // close article
 closeArticle.addEventListener("click", () => myDialog.close());
+
+//function updateData
+const updateData = (newDate, newTitle, newText) => {
+  valueName = loadData();
+  try {
+    const updatedBlogs = valueName.map((blog) => {
+      return blog.datum === newDate
+        ? (blog = { datum: dateTimestamp(), titel: newTitle, artikel: newText })
+        : blog;
+    });
+    myStore.setItem(keyName, JSON.stringify(updatedBlogs));
+    return updatedBlogs;
+  } catch (e) {
+    console.log("error updating item");
+  }
+};
+
+// form 0
+const formUpdate = document.getElementById("form0");
+formUpdate.addEventListener("submit", (e) => {
+  e.preventDefault();
+  updateData(
+    this.popup__dts.innerText,
+    this.popup__title.value,
+    this.popup__message.value
+  );
+});
 
 // form 1
 const formPost = document.getElementById("form1");
@@ -142,6 +177,12 @@ formPost.addEventListener("submit", (e) => {
 
   postDate = dateTimestamp();
   dts.innerText = `Date: ${postDate}`;
+});
+
+// form 2
+const formSearch = document.getElementById("form2");
+formSearch.addEventListener("submit", (e) => {
+  e.preventDefault();
 });
 
 // load stuff

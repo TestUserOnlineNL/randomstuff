@@ -1,0 +1,33 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif, verdana;
+  font-size: 1rem;
+}
+/* global style */
+.body {
+  background-color: grey;
+}
+.section_title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* filters  style */
+.filter_title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.check_box {
+  margin: 1rem;
+}
+.reset {
+  width: 5rem;
+  border: 2px solid black;
+  padding: 0.1rem 0rem;
+  text-align: center;
+  cursor: pointer;
+}

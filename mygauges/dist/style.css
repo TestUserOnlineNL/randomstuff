@@ -1,0 +1,226 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: lightgreen;
+}
+
+/*** GAUGE ONE ***/
+.gauge-one {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.gauge {
+  margin-top: 3rem;
+  border: 2px solid yellow;
+  background-color: blue;
+  width: 350px;
+  padding: 25px;
+}
+
+.gauge-box {
+  background-color: rgba(164, 219, 232, 0.3);
+  width: 300px;
+  height: 150px;
+  border-top-left-radius: 150px;
+  border-top-right-radius: 150px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gauge-dail {
+  background-color: crimson;
+  width: 300px;
+  height: 150px;
+  position: absolute;
+  bottom: -100%;
+  left: 0%;
+  transform-origin: center top;
+  transform: rotate(0deg);
+  transition: transform 0.5s ease-out;
+}
+
+.gauge-cover-circle {
+  width: 245px;
+  height: 245px;
+  border-radius: 50%;
+  background-color: blue;
+  position: absolute;
+  top: 30px;
+  left: 28px;
+}
+
+.gauge-text {
+  color: red;
+  padding: 3rem 0rem;
+  font-size: 3rem;
+  text-align: center;
+}
+/*** RANGE SLIDERS - GAUGE ONE A and GAUGE ONE B ***/
+.sliders {
+  margin-top: 3rem;
+  border: 2px solid yellow;
+  background-color: blue;
+  min-width: 175px;
+  height: 200px;
+  position: relative;
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+.gauge-dail-controller-two {
+  position: absolute;
+  top: 77.5px;
+  left: 40px;
+  height: 40px;
+  width: 175px;
+  background-color: blue;
+  border-top: 3px solid red;
+  border-bottom: 3px solid red;
+  transform: rotate(-90deg);
+}
+.gauge-dail-controller-one {
+  position: absolute;
+  top: 77.5px;
+  right: 40px;
+  height: 40px;
+  width: 175px;
+  background-color: blue;
+  border-top: 3px solid red;
+  border-bottom: 3px solid red;
+  transform: rotate(-90deg);
+}
+
+.gauge-dail-controller-one::-moz-range-thumb {
+  height: 30px;
+  width: 10px;
+  border-radius: 0;
+  border-color: red;
+  background-color: red;
+  cursor: pointer;
+}
+.gauge-dail-controller-one::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 30px;
+  width: 10px;
+  border-radius: 0;
+  border-color: red;
+  background-color: red;
+  cursor: pointer;
+}
+.gauge-dail-controller-two::-moz-range-thumb {
+  height: 30px;
+  width: 10px;
+  border-radius: 0;
+  border-color: red;
+  background-color: red;
+  cursor: pointer;
+}
+.gauge-dail-controller-two::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 30px;
+  width: 10px;
+  border-radius: 0;
+  border-color: red;
+  background-color: red;
+  cursor: pointer;
+}
+
+/*** GAUGE TWO ***/
+.mycontainer {
+  margin: 0 auto;
+  margin-top: 3rem;
+  background-color: lightgreen;
+  width: 500px;
+  padding: 50px;
+}
+
+.mybox {
+  background-color: lightgreen;
+  width: 400px;
+  height: 200px;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mymove {
+  border-top: 2px solid pink;
+  background-color: lightblue;
+  width: 400px;
+  height: 200px;
+  position: absolute;
+  bottom: -100%;
+  left: 0%;
+  transform-origin: center top;
+  transform: rotate(0deg);
+  transition: transform 0.5s ease-out;
+}
+
+.mycover {
+  background-color: pink;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  position: absolute;
+  top: 60px;
+  left: 60px;
+}
+
+.mytext {
+  color: grey;
+  padding: 3rem 0rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.mypoint {
+  height: 12px;
+  width: 12px;
+  background-color: pink;
+  border-radius: 50%;
+  position: absolute;
+  top: -6px;
+  left: -5px;
+}
+/*** RANGE SLIDER - GAUGE TWO ***/
+.mymovecontroller input[type="range"]:focus {
+  outline: none;
+}
+
+.mycontrollerbox {
+  width: 280px;
+  margin: 0 auto;
+  padding-top: 12px;
+}
+
+.mymovecontroller {
+  height: 25px;
+  width: 280px;
+  background-color: grey;
+  border-radius: 25px;
+}
+
+.mymovecontroller::-moz-range-thumb {
+  height: 23px;
+  width: 23px;
+  border-color: grey;
+  background-color: pink;
+  border-radius: 50%;
+  cursor: pointer;
+}

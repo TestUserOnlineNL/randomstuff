@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - mygauges</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+  <section class="gauge-one">
+    <!-- gauge one A -->
+    <div class="gauge">
+      <div class="gauge-box">
+        <div class="gauge-dail" id="gauge-dail-one"></div>
+        <div class="gauge-cover-circle">
+          <div class="gauge-text" id="gauge-text-one">0</div>
+        </div>
+      </div>
+    </div>
+    <!-- range sliders - gauge one A & gauge one B -->
+    <div class="sliders">
+      <div>
+        <input type="range" min="0" max="100" value="0" class="gauge-dail-controller-one" id="gauge-dail-controller-one">
+      </div>
+      <div>
+        <input type="range" min="0" max="100" value="0" class="gauge-dail-controller-two" id="gauge-dail-controller-two">
+      </div>
+    </div>
+    <!-- gauge one B -->
+    <div class="gauge">
+      <div class="gauge-box">
+        <div class="gauge-dail" id="gauge-dail-two"></div>
+        <div class="gauge-cover-circle">
+          <div class="gauge-text" id="gauge-text-two">0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <!-- gauge two -->
+    <div class="mycontainer">
+      <div class="mybox">
+        <div class="mymove" id="mymove">
+          <div class="mypoint"></div>
+        </div>
+        <div class="mycover">
+          <div class="mytext" id="mytext">0</div>
+        </div>
+      </div>
+      <!-- range slider - gauge two -->
+      <div class="mycontrollerbox">
+        <input type="range" min="0" max="100" value="0" class="mymovecontroller" id="mymovecontroller">
+      </div>
+    </div>
+  </section>
+</body>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

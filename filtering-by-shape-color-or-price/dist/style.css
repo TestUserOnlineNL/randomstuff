@@ -9,7 +9,7 @@
 }
 /* global style */
 .body {
-  background-color: grey;
+  background-color: whitesmoke;
 }
 .section_title {
   font-size: 2rem;
@@ -21,8 +21,105 @@
   font-size: 1rem;
   font-weight: bold;
 }
-.check_box {
+.gauges {
+  display: flex;
+  justify-content: space-around;
+}
+/* GAUGE */
+.mycontainer {
+  margin: 0 auto;
+  margin-top: 3rem;
+  background-color: transparent;
+  width: 500px;
+  padding: 50px;
+}
+
+.mybox {
+  background-color: transparent;
+  width: 400px;
+  height: 200px;
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mymove {
+  border-top: 2px solid pink;
+  background-color: lightblue;
+  width: 400px;
+  height: 200px;
+  position: absolute;
+  bottom: -100%;
+  left: 0%;
+  transform-origin: center top;
+  transform: rotate(0deg);
+  transition: transform 0.5s ease-out;
+}
+
+.mycover {
+  background-color: pink;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  position: absolute;
+  top: 60px;
+  left: 60px;
+}
+
+.mytext {
+  color: grey;
+  padding: 3rem 0rem;
+  font-size: 3rem;
+  text-align: center;
+}
+
+.mypoint {
+  height: 12px;
+  width: 12px;
+  background-color: pink;
+  border-radius: 50%;
+  position: absolute;
+  top: -6px;
+  left: -5px;
+}
+/*** RANGE SLIDER - GAUGE ***/
+.mymovecontroller input[type="range"]:focus {
+  outline: none;
+}
+
+.mycontrollerbox {
+  width: 280px;
+  margin: 0 auto;
+  padding-top: 12px;
+}
+
+.mymovecontroller {
+  height: 25px;
+  width: 280px;
+  background-color: grey;
+  border-radius: 25px;
+}
+
+.mymovecontroller::-moz-range-thumb {
+  height: 23px;
+  width: 23px;
+  border-color: grey;
+  background-color: pink;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.mymovecontroller::-webkit-slider-thumb {
+  height: 23px;
+  width: 23px;
+  border-color: grey;
+  background-color: pink;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.selection_filters {
   margin: 1rem;
+  font-weight: normal;
 }
 .reset {
   width: 5rem;

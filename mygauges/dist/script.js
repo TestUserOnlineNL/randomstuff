@@ -29,13 +29,67 @@ myMoveController.addEventListener("input", () => {
   myText.innerText = myMoveController.value;
   myMove.style.transform = `rotate(${myMoveController.value * 1.8}deg)`;
 });
-/*** my Pink Gauge class [wip] ***/
-class MyPinkGauge {
+
+///////////////////////////////////////////////////////////////////////////
+//
+/*** my Favorite Gauge CLASS ***/
+class MyFavoriteGauge {
   constructor(needle, display, slider) {
     this.needle = needle;
     this.display = display;
     this.slider = slider;
   }
-  /* draw gauge */
+  drawGauge() {
+    const mypoint = document.createElement("div");
+    mypoint.setAttribute("class", "mypoint");
+    //
+    const mymove = document.createElement("div");
+    mymove.setAttribute("class", "mymove");
+    mymove.setAttribute("id", "mymove");
+    mymove.appendChild(mypoint);
+    //
+    const mytext = document.createElement("div");
+    mytext.setAttribute("class", "mytext");
+    mytext.setAttribute("id", "mytext");
+    mytext.innerText = "0";
+    //
+    const mycover = document.createElement("div");
+    mycover.setAttribute("class", "mycover");
+    mycover.appendChild(mytext);
+    //
+    const myinput = document.createElement("input");
+    myinput.setAttribute("type", "range");
+    myinput.setAttribute("min", "0");
+    myinput.setAttribute("max", "100");
+    myinput.setAttribute("value", "0");
+    myinput.setAttribute("class", "mymovecontroller");
+    myinput.setAttribute("id", "mymovecontroller");
+    //
+    const mycontrollerbox = document.createElement("div");
+    mycontrollerbox.setAttribute("class", "mycontrollerbox");
+    mycontrollerbox.appendChild(myinput);
+    //
+    const mybox = document.createElement("div");
+    mybox.setAttribute("class", "mybox");
+    mybox.appendChild(mymove);
+    mybox.appendChild(mycover);
+    //
+    const mycontainer = document.createElement("div");
+    mycontainer.setAttribute("class", "mycontainer");
+    mycontainer.appendChild(mybox);
+    mycontainer.appendChild(mycontrollerbox);
+    //
+    const section = document.createElement("section");
+    section.appendChild(mycontainer);
+
+    myinput.addEventListener("input", () => {
+      mytext.innerText = myinput.value;
+      mymove.style.transform = `rotate(${myinput.value * 1.8}deg)`;
+    });
+    return section;
+  }
   /* apply event handlers */
 }
+const myBody = document.querySelector("body");
+const myTest = new MyFavoriteGauge();
+myBody.appendChild(myTest.drawGauge());

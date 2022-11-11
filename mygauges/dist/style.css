@@ -224,3 +224,11 @@ input[type="range"]:focus {
   border-radius: 50%;
   cursor: pointer;
 }
+.mymovecontroller::-webkit-slider-thumb {
+  height: 23px;
+  width: 23px;
+  border-color: grey;
+  background-color: pink;
+  border-radius: 50%;
+  cursor: pointer;
+}

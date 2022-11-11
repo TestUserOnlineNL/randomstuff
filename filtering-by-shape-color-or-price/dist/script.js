@@ -29,15 +29,103 @@ const dateTimestamp = () => {
   return new Intl.DateTimeFormat("nl-NL", options).format();
 };
 //============================
-////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 /*
-  SHAPES OBJECTS
-
-  Classes: Shapes, FilterObjects, ShowObjects 
+  CLASSES: makeCheckboxes, Shapes, FilterObjects, ShowObjects
 */
-////////////////////////////////////////////////////
-const showShapes = document.querySelector("#shapes");
-const myShapes = [];
+/////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+//
+/*** my Favorite Gauge CLASS ***/
+class MyFavoriteGauge {
+  constructor(needle, display, slider) {
+    this.needle = needle;
+    this.display = display;
+    this.slider = slider;
+  }
+  drawGauge() {
+    const mypoint = document.createElement("div");
+    mypoint.setAttribute("class", "mypoint");
+    //
+    const mymove = document.createElement("div");
+    mymove.setAttribute("class", "mymove");
+    mymove.setAttribute("id", "mymove");
+    mymove.appendChild(mypoint);
+    //
+    const mytext = document.createElement("div");
+    mytext.setAttribute("class", "mytext");
+    mytext.setAttribute("id", "mytext");
+    mytext.innerText = "0";
+    //
+    const mycover = document.createElement("div");
+    mycover.setAttribute("class", "mycover");
+    mycover.appendChild(mytext);
+    //
+    const myinput = document.createElement("input");
+    myinput.setAttribute("type", "range");
+    myinput.setAttribute("min", "0");
+    myinput.setAttribute("max", "100");
+    myinput.setAttribute("value", "0");
+    myinput.setAttribute("class", "mymovecontroller");
+    myinput.setAttribute("id", "mymovecontroller");
+    //
+    const mycontrollerbox = document.createElement("div");
+    mycontrollerbox.setAttribute("class", "mycontrollerbox");
+    mycontrollerbox.appendChild(myinput);
+    //
+    const mybox = document.createElement("div");
+    mybox.setAttribute("class", "mybox");
+    mybox.appendChild(mymove);
+    mybox.appendChild(mycover);
+    //
+    const mycontainer = document.createElement("div");
+    mycontainer.setAttribute("class", "mycontainer");
+    mycontainer.appendChild(mybox);
+    mycontainer.appendChild(mycontrollerbox);
+    //
+    const section = document.createElement("section");
+    section.appendChild(mycontainer);
+
+    myinput.addEventListener("input", () => {
+      mytext.innerText = myinput.value;
+      mymove.style.transform = `rotate(${myinput.value * 1.8}deg)`;
+    });
+    return section;
+  }
+}
+// minimum price gauge
+const gaugeOne = document.querySelector("#gauge_one");
+const minPriceGauge = new MyFavoriteGauge();
+gaugeOne.appendChild(minPriceGauge.drawGauge());
+// maximum price gauge
+const gaugeTwo = document.querySelector("#gauge_two");
+const maxPriceGauge = new MyFavoriteGauge();
+gaugeTwo.appendChild(maxPriceGauge.drawGauge());
+
+class makeCheckboxes {
+  constructor(checkboxNames) {
+    this.checkboxNames = checkboxNames;
+  }
+  myCheckboxes() {
+    const checkboxesContainer = document.createElement("div");
+    checkboxesContainer.setAttribute("class", "selection_filters");
+    //
+    this.checkboxNames.forEach((boxname) => {
+      const myCheckboxLabel = document.createElement("label");
+      myCheckboxLabel.setAttribute("for", boxname);
+      myCheckboxLabel.innerText = boxname;
+      //
+      const myCheckbox = document.createElement("input");
+      myCheckbox.setAttribute("type", "checkbox");
+      myCheckbox.setAttribute("name", boxname);
+      myCheckbox.setAttribute("id", boxname);
+      //
+      checkboxesContainer.appendChild(myCheckboxLabel);
+      checkboxesContainer.appendChild(myCheckbox);
+    });
+    return checkboxesContainer;
+  }
+}
 
 class Shapes {
   constructor(shape, size) {
@@ -115,7 +203,7 @@ class Shapes {
     return (this.price = price);
   }
 }
-// filter shapes
+/*** Filter Objects (shapes) ***/
 class FilterObjects {
   constructor(arr) {
     this.arr = arr;
@@ -134,21 +222,27 @@ class FilterObjects {
     return filteredShapes;
   }
   filterPrice(objprice) {
-    const filteredShapes = this.arr.filter((shape) =>
-      shape.id.includes(objprice)
+    const filteredShapes = this.arr.filter(
+      (shape) => shape.id.split(" ")[2] === objprice
     );
     return filteredShapes;
   }
   get filterNone() {
-    const filteredShapes = this.arr;
-    return filteredShapes;
+    // const filteredShapes = this.arr;
+    // return filteredShapes;
+    return this.arr;
   }
 }
-// show shapes
+/*** Show Objects (shapes) ***/
 class ShowObjects {
   constructor(shapesArray, attachTo) {
     this.shapesArray = shapesArray;
     this.attachTo = attachTo;
+  }
+  removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
   }
   objectsGrid() {
     this.shapesArray.forEach((shape) => {
@@ -160,7 +254,9 @@ class ShowObjects {
   }
 }
 //
-// grid cells
+const showShapes = document.querySelector("#shapes");
+const myShapes = [];
+/*** Define Grid Cells ***/
 const mySquare = new Shapes("square", 200);
 const myCircle = new Shapes("circle", 200);
 const myTriangle = new Shapes("triangle", 200);
@@ -230,19 +326,34 @@ myTriangle.shapePrice = "99";
 myShapes.push(myTriangle.chooseShape());
 // \\ // \\ // \\
 const toBeFiltered = new FilterObjects(myShapes);
-let resultSet = toBeFiltered.filterNone;
-///////////////////////////////////////////////////////////////////////////////////
+let resultArray = toBeFiltered.filterNone;
+const myResult = new ShowObjects(resultArray, showShapes);
+myResult.objectsGrid();
+// \\ // \\ // \\
 
-// filter criteria
-// color \\
+/*** Filter Criteria ***/
+////////////
+const kleuren = document.querySelector("#mycolors");
+const _color = new makeCheckboxes(["red", "purple", "blue"], "blue", "orange");
+kleuren.appendChild(_color.myCheckboxes());
+//
+const vormen = document.querySelector("#myshapes");
+const _shape = new makeCheckboxes(
+  ["square", "circle", "triangle"],
+  "blue",
+  "orange"
+);
+vormen.appendChild(_shape.myCheckboxes());
+////////////
+// color
 const colorRed = document.querySelector("#red");
 const colorPurple = document.querySelector("#purple");
 const colorBlue = document.querySelector("#blue");
-// shape \\
+// shape
 const shapeCircle = document.querySelector("#circle");
 const shapeSquare = document.querySelector("#square");
 const shapeTriangle = document.querySelector("#triangle");
-// price \\
+// price
 const minPrice = document.querySelector("#min_price");
 const maxPrice = document.querySelector("#max_price");
 const showMinPrice = document.querySelector("#showMinPrice");
@@ -254,34 +365,98 @@ const resetValues = document.querySelector("#reset_button");
 // color eventlisteners \\
 colorRed.addEventListener("click", () => {
   if (colorRed.checked === true) {
-    resultSet = toBeFiltered.filterColor("red");
-    const myResult = new ShowObjects(resultSet, showShapes);
+    resultArray = toBeFiltered.filterColor("red");
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
     myResult.objectsGrid();
   } else {
-    resultSet = toBeFiltered.filterNone;
-    const myResult = new ShowObjects(resultSet, showShapes);
+    resultArray = toBeFiltered.filterNone;
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
     myResult.objectsGrid();
   }
 });
 colorPurple.addEventListener("click", () => {
-  lprint(colorPurple.checked ? "purple checked!" : "purple unchecked!");
+  if (colorPurple.checked === true) {
+    resultArray = toBeFiltered.filterColor("purple");
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  } else {
+    resultArray = toBeFiltered.filterNone;
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  }
 });
 colorBlue.addEventListener("click", () => {
-  lprint(colorBlue.checked ? "blue checked!" : "blue unchecked!");
+  if (colorBlue.checked === true) {
+    resultArray = toBeFiltered.filterColor("blue");
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  } else {
+    resultArray = toBeFiltered.filterNone;
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  }
 });
 // shape eventlisteners \\
-shapeCircle.addEventListener("click", () => {
-  lprint(shapeCircle.checked ? "circle checked!" : "circle unchecked!");
-});
 shapeSquare.addEventListener("click", () => {
-  lprint(shapeSquare.checked ? "square checked!" : "square unchecked!");
+  if (shapeSquare.checked === true) {
+    resultArray = toBeFiltered.filterShape("square");
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  } else {
+    resultArray = toBeFiltered.filterNone;
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  }
+});
+shapeCircle.addEventListener("click", () => {
+  if (shapeCircle.checked === true) {
+    resultArray = toBeFiltered.filterShape("circle");
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  } else {
+    resultArray = toBeFiltered.filterNone;
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  }
 });
 shapeTriangle.addEventListener("click", () => {
-  lprint(shapeTriangle.checked ? "triangle checked!" : "triangle unchecked!");
+  if (shapeTriangle.checked === true) {
+    resultArray = toBeFiltered.filterShape("triangle");
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  } else {
+    resultArray = toBeFiltered.filterNone;
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  }
 });
 // price eventlisteners \\
 minPrice.addEventListener("input", () => {
   showMinPrice.innerText = minPrice.value;
+  if (minPrice.value >= 0) {
+    console.log(minPrice.value);
+    resultArray = toBeFiltered.filterPrice(minPrice.value);
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  } else {
+    resultArray = toBeFiltered.filterNone;
+    const myResult = new ShowObjects(resultArray, showShapes);
+    myResult.removeAllChildNodes(showShapes);
+    myResult.objectsGrid();
+  }
 });
 maxPrice.addEventListener("input", () => {
   showMaxPrice.innerText = maxPrice.value;
@@ -292,7 +467,7 @@ resetValues.addEventListener("click", () => {
   colorPurple.checked = false;
   colorBlue.checked = false;
   shapeCircle.checked = false;
-  shapeRectangle.checked = false;
+  shapeSquare.checked = false;
   shapeTriangle.checked = false;
   showMinPrice.innerText = "0";
   minPrice.value = 0;

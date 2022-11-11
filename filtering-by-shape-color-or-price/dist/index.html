@@ -9,48 +9,20 @@
 <body>
 <!-- partial:index.partial.html -->
 <body class="body">
-  <!-- comment: work in progress -->
   <div class="section_title">filters</div>
   <!-- filters -->
   <div>
-    <!-- color filter -->
-    <div class="filter_title">color</div>
-    <div class="check_box">
-      <label for="red">red</label>
-      <input type="checkbox" name="red" id="red">
-    </div>
-    <div class="check_box">
-      <label for="purple">purple</label>
-      <input type="checkbox" name="purple" id="purple">
-    </div>
-    <div class="check_box">
-      <label for="blue">blue</label>
-      <input type="checkbox" name="blue" id="blue">
-    </div>
-    <!-- shape filter -->
-    <div class="filter_title">shape</div>
-    <div class="check_box">
-      <label for="square">square</label>
-      <input type="checkbox" name="square" id="square">
-    </div>
-    <div class="check_box">
-      <label for="circle">circle</label>
-      <input type="checkbox" name="circle" id="circle">
-    </div>
-    <div class="check_box">
-      <label for="triangle">triangle</label>
-      <input type="checkbox" name="triangle" id="triangle">
-    </div>
     <!-- price filter -->
-    <div class="filter_title">price</div>
-    <div class="check_box">
-      <label for="min_price">min. price</label>
-      <input type="range" name="min_price" id="min_price" min="0" max="100" value="0"><span id="showMinPrice">0</span>
+    <div class="filter_title" id="filter_title">price</div>
+    <div class="gauges">
+      <div class="" id="gauge_one"></div>
+      <div class="" id="gauge_two"></div>
     </div>
-    <div class="check_box">
-      <label for="max_price">max. price</label>
-      <input type="range" name="max_price" id="max_price" min="0" max="100" value="100"><span id="showMaxPrice">100</span>
-    </div>
+    <!-- color filter -->
+    <div class="filter_title" id="mycolors">color</div>
+    <!-- shape filter -->
+    <div class="filter_title" id="myshapes">shape</div>
+    <!-- reset button -->
     <div>
       <div class="reset" id="reset_button">reset</div>
     </div>

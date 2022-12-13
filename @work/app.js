@@ -67,6 +67,20 @@ const myPersonalData = {
 //
 //============================
 /*** range slider filter by min & max value ***/
+// function: range values check
+const rangeValuesCheck = (minValue, maxValue) => {
+    let min_price, max_price;
+    if (parseInt(minValue) > parseInt(maxValue)) {
+        max_price = minValue;
+        min_price = maxValue;
+    }
+    else {
+        min_price = minValue;
+        max_price = maxValue;
+    }
+    return { min_price, max_price };
+}
+//
 const section = document.querySelector("#rangeControls");
 // minimum price range slider
 const divRangeOne = document.createElement("div");
@@ -108,21 +122,10 @@ const addRangeEventListener = () => {
     const labels = document.querySelectorAll("label");
     for (let range = 0; range < rangeNames.length; range++) {
         rangeNames[range].addEventListener('input', (ev) => {
-            let rv = [];
-            rangeNames[range].value = ev.target.value;
             labels[range].innerText = ev.target.value;
-            rv.push(rangeNames[range].value, labels[range].innerText);
-            lprint(rv);
-            return rv;
+            console.log(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+
         });
     }
 }
-lprint(addRangeEventListener());
-
-const rangeValuesCheck = (minRangeValue, maxRangeValue) => {
-    if (minRangeValue > maxRangeValue) {
-        return ([minRangeValue, maxRangeValue] = [maxRangeValue, minRangeValue]);
-    } else {
-        return ([minRangeValue, maxRangeValue]);
-    }
-}
+addRangeEventListener();

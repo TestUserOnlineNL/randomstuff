@@ -12,3 +12,11 @@ body {
     background-color: blue;
     color: pink;
 }
+
+.appTitle {
+    padding: 0.5rem;
+}
+
+.rangeDiv {
+    padding: 0.25rem 0.5rem;
+}

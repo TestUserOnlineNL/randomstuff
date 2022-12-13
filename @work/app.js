@@ -1,9 +1,13 @@
 "use strict";
+/*** function log ***/
+const log = (data) => {
+    console.log(data);
+}
 /*** function lprint ***/
 const lprint = (data) => {
     const element = document.createElement("section");
     element.textContent = data;
-    return document.body.appendChild(element), console.log(data);
+    return document.body.appendChild(element), log(data);
 };
 /*** function lprintArr  ***/
 const lprintArr = (arrToPrint) => {
@@ -41,7 +45,7 @@ const dateTimestamp = () => {
     return new Intl.DateTimeFormat("nl-NL", options).format();
 };
 //
-lprint(dateTimestamp());
+log(dateTimestamp());
 //
 //============================
 /*** pass object to function as parameters ***/
@@ -62,7 +66,7 @@ const myPersonalData = {
     gender: "Male"
 };
 (() => {
-    lprintObj(myFullname(myPersonalData));
+    log(myFullname(myPersonalData));
 })();
 //
 //============================
@@ -92,6 +96,7 @@ rangeOne.setAttribute("min", 0);
 rangeOne.setAttribute("max", "100");
 rangeOne.setAttribute("value", 0);
 divRangeOne.appendChild(rangeOne);
+divRangeOne.setAttribute("class", "rangeDiv");
 section.appendChild(divRangeOne);
 // minimum price range label
 const divLabelOne = document.createElement("label");
@@ -109,6 +114,7 @@ rangeTwo.setAttribute("min", 0);
 rangeTwo.setAttribute("max", "100");
 rangeTwo.setAttribute("value", "100");
 divRangeTwo.appendChild(rangeTwo);
+divRangeTwo.setAttribute("class", "rangeDiv");
 section.appendChild(divRangeTwo);
 // maximum price range label
 const divLabelTwo = document.createElement("label");
@@ -123,7 +129,8 @@ const addRangeEventListener = () => {
     for (let range = 0; range < rangeNames.length; range++) {
         rangeNames[range].addEventListener('input', (ev) => {
             labels[range].innerText = ev.target.value;
-            console.log(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+            // return object
+            lprintObj(rangeValuesCheck(rangeOne.value, rangeTwo.value));
 
         });
     }

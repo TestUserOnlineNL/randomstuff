@@ -69,6 +69,20 @@ const myPersonalData = {
     log(myFullname(myPersonalData));
 })();
 //
+const printObjectOutput = (dataObject) => {
+    const divContainer = document.createElement("div");
+    divContainer.style.margin = "0.25rem 0.5rem";
+    divContainer.style.backgroundColor = "grey";
+    divContainer.style.width = "14.5rem"
+    divContainer.style.padding = "0.25rem"
+    let tekst = "";
+    for (const [key, value] of Object.entries(dataObject)) {
+        tekst += `${key}: ${value} `;
+    }
+    divContainer.innerText = tekst;
+    return document.body.appendChild(divContainer);
+}
+//
 //============================
 /*** range slider filter by min & max value ***/
 // function: range values check
@@ -130,7 +144,7 @@ const addRangeEventListener = () => {
         rangeNames[range].addEventListener('input', (ev) => {
             labels[range].innerText = ev.target.value;
             // return object
-            lprintObj(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+            printObjectOutput(rangeValuesCheck(rangeOne.value, rangeTwo.value));
 
         });
     }

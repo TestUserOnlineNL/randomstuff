@@ -48,6 +48,32 @@ const dateTimestamp = () => {
 log(dateTimestamp());
 //
 //============================
+/* TEST DATA */
+const shapesArray = [
+    { shape: "square", color: "purple", price: 0 },
+    { shape: "circle", color: "purple", price: 20 },
+    { shape: "square", color: "red", price: 40 },
+    { shape: "circle", color: "red", price: 0 },
+    { shape: "square", color: "blue", price: 20 },
+    { shape: "circle", color: "blue", price: 40 },
+    { shape: "square", color: "purple", price: 60 },
+    { shape: "circle", color: "purple", price: 80 },
+    { shape: "square", color: "red", price: 100 },
+    { shape: "circle", color: "red", price: 60 },
+    { shape: "square", color: "blue", price: 80 },
+    { shape: "circle", color: "blue", price: 100 }
+];
+
+const criteria = {
+    red: false,
+    blue: false,
+    purple: false,
+    square: false,
+    circle: false,
+    minprice: 0,
+    maxprice: 0
+};
+//============================
 /*** pass object to function as parameters ***/
 const myFullname = ({
     firstname = "",
@@ -85,7 +111,7 @@ const printObjectOutput = (dataObject) => {
 //
 //============================
 /*** range slider filter by min & max value ***/
-// function: range values check
+// function: rangeValuesCheck
 const rangeValuesCheck = (minValue, maxValue) => {
     let min_price, max_price;
     if (parseInt(minValue) > parseInt(maxValue)) {
@@ -107,7 +133,7 @@ rangeOne.setAttribute("type", "range");
 rangeOne.setAttribute("name", "rangeOne");
 rangeOne.setAttribute("id", "rangeOne");
 rangeOne.setAttribute("min", 0);
-rangeOne.setAttribute("max", "100");
+rangeOne.setAttribute("max", 100);
 rangeOne.setAttribute("value", 0);
 divRangeOne.appendChild(rangeOne);
 divRangeOne.setAttribute("class", "rangeDiv");
@@ -125,8 +151,8 @@ rangeTwo.setAttribute("type", "range");
 rangeTwo.setAttribute("name", "rangeTwo");
 rangeTwo.setAttribute("id", "rangeTwo");
 rangeTwo.setAttribute("min", 0);
-rangeTwo.setAttribute("max", "100");
-rangeTwo.setAttribute("value", "100");
+rangeTwo.setAttribute("max", 100);
+rangeTwo.setAttribute("value", 100);
 divRangeTwo.appendChild(rangeTwo);
 divRangeTwo.setAttribute("class", "rangeDiv");
 section.appendChild(divRangeTwo);
@@ -136,17 +162,40 @@ divLabelTwo.setAttribute("for", "rangeTwo");
 divLabelTwo.setAttribute("id", "rangeLabelTwo");
 divLabelTwo.innerText = rangeTwo.value;
 divRangeTwo.appendChild(divLabelTwo);
-// range slider event listener
+// function: addRangeEventListener
 const addRangeEventListener = () => {
-    const rangeNames = document.querySelectorAll("input[type='range']");
-    const labels = document.querySelectorAll("label");
-    for (let range = 0; range < rangeNames.length; range++) {
-        rangeNames[range].addEventListener('input', (ev) => {
-            labels[range].innerText = ev.target.value;
-            // return object
-            printObjectOutput(rangeValuesCheck(rangeOne.value, rangeTwo.value));
-
-        });
+    const myRanges = document.querySelectorAll("input[type='range']");
+    const myLabels = document.querySelectorAll("label");
+    let myRangeId = "";
+    let myLabelFor = "";
+    for (let range = 0; range < myRanges.length; range++) {
+        for (let lbl = 0; lbl < myLabels.length; lbl++) {
+            myRangeId = myRanges[range].getAttribute("id");
+            myLabelFor = myLabels[lbl].getAttribute("for");
+            if (myRangeId === myLabelFor) {
+                myRanges[range].addEventListener("input", (ev) => {
+                    myLabels[lbl].innerText = ev.target.value;
+                    console.log(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+                    printObjectOutput(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+                });
+            }
+        }
+    }
+};
+// execute function: addRangeEventListener
+addRangeEventListener();
+//
+// function: compare labels For with ranges Id
+const compareAttributes = () => {
+    const myRanges = document.querySelectorAll("input[type='range']");
+    const myLabels = document.querySelectorAll("label");
+    let myRangeId, myLabelFor = "";
+    for (let range = 0; range < myRanges.length; range++) {
+        for (let lbl = 0; lbl < myLabels.length; lbl++) {
+            myRangeId = (myRanges[range].getAttribute("id"));
+            myLabelFor = (myLabels[lbl].getAttribute("for"));
+            if (myRangeId === myLabelFor) console.log(myLabelFor);
+        }
     }
 }
-addRangeEventListener();
+compareAttributes();

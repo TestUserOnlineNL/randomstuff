@@ -74,7 +74,10 @@ const criteria = {
     maxprice: 0
 };
 //============================
-/*** pass object to function as parameters ***/
+/*
+ function: myFullname
+ pass object to function as parameters
+*/
 const myFullname = ({
     firstname = "",
     lastname = "",

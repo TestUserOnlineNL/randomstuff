@@ -13,27 +13,6 @@ const shapesArray = [
   { shape: "square", color: "blue", price: 80 },
   { shape: "circle", color: "blue", price: 100 }
 ];
-
-const criteria = {
-  red: false,
-  blue: false,
-  purple: false,
-  square: false,
-  circle: false,
-  minprice: 0,
-  maxprice: 0
-};
-/* function: displayShapeDataForMe */
-const displayShapeDataForMe = (arrayIn) => {
-  let count = 0;
-  arrayIn.forEach((figure) => {
-    let row = Object.values(figure);
-    console.log(row);
-    return row;
-  });
-};
-//
-//displayShapeDataForMe(shapesArray);
 //
 /* function addEventListenerForCheckbox */
 const checkboxObjArray = [];
@@ -46,25 +25,11 @@ const addEventListenerForCheckbox = (elementName, typeEvent) => {
   });
 };
 
-/* function: addEventListenerForRange */
-const addEventListenerForRange = (elementName1, elementName2, typeEvent) => {
-  elementName1.addEventListener(typeEvent, (e) => {
-    elementName1.value = e.target.value;
-    elementName2.innerText = e.target.value;
-    criteria[`${elementName1.name}`] = parseInt(e.target.value);
-
-    const filteredshapesArray = shapesArray.filter((item) => {
-      //console.log(item.price);
-      if (item.price >= criteria.minprice && item.price <= criteria.maxprice)
-        return item;
-    });
-    console.log(filteredshapesArray);
-  });
-};
 /* function: addEventListenerForButton */
 const addEventListenerForButton = (elementName) => {
   elementName.addEventListener("click", () => {
-    console.log("clicked!");
+    resetFilters();
+    console.log("reset filters button clicked!");
   });
 };
 /* function: createCheckboxesForMe */
@@ -90,38 +55,88 @@ const createCheckboxesForMe = (groupName, ...checkboxNames) => {
   }
   return newCheckboxesWithLabel;
 };
-/* function: createRangeSliderForMe */
-const createRangeSlidersForMe = (...rangeNames) => {
-  const newRangesWithLabel = [];
-  for (let range = 0; range < rangeNames.length; range++) {
-    const rangesContainer = document.createElement("div");
-    rangesContainer.setAttribute("class", "rangesContainer");
-    //
-    const rangeSliderLabel = document.createElement("label");
-    rangeSliderLabel.setAttribute("for", rangeNames[range]);
-    rangeSliderLabel.innerText = rangeNames[range];
-    rangesContainer.appendChild(rangeSliderLabel);
-    //
-    const rangeSlider = document.createElement("input");
-    rangeSlider.setAttribute("type", "range");
-    rangeSlider.setAttribute("name", rangeNames[range]);
-    rangeSlider.setAttribute("id", rangeNames[range]);
-    rangeSlider.setAttribute("value", 0);
-    rangesContainer.appendChild(rangeSlider);
-    //
-    const priceLabel = document.createElement("span");
-    priceLabel.setAttribute("id", "priceLabel");
-    priceLabel.innerText = 0;
-    rangesContainer.appendChild(priceLabel);
-    //
-    addEventListenerForRange(rangeSlider, priceLabel, "input");
-    //
-    newRangesWithLabel.push(rangesContainer);
+// function: range values check
+const rangeValuesCheck = (minValue, maxValue) => {
+  let min_price, max_price;
+  if (parseInt(minValue) > parseInt(maxValue)) {
+    max_price = minValue;
+    min_price = maxValue;
+  } else {
+    min_price = minValue;
+    max_price = maxValue;
   }
-  return newRangesWithLabel;
+  return { min_price, max_price };
 };
-/* function addButtonForMe */
-const addButtonForMe = (...buttonNames) => {
+/* function: createRangeSlider */
+const createRangeSlider = () => {
+  /*** range slider filter by min & max value ***/
+  //
+  const divSection = document.createElement("div");
+  divSection.setAttribute("id", "rangeContainer");
+  divSection.setAttribute("class", "rangeContainer");
+
+  // minimum price range slider
+  const divRangeOne = document.createElement("div");
+  const rangeOne = document.createElement("input");
+  rangeOne.setAttribute("type", "range");
+  rangeOne.setAttribute("name", "rangeOne");
+  rangeOne.setAttribute("id", "rangeOne");
+  rangeOne.setAttribute("min", 0);
+  rangeOne.setAttribute("max", 100);
+  rangeOne.setAttribute("value", 0);
+  divRangeOne.appendChild(rangeOne);
+
+  // minimum price range label
+  const divLabelOne = document.createElement("label");
+  divLabelOne.setAttribute("for", "rangeOne");
+  divLabelOne.setAttribute("id", "rangeLabelOne");
+  divLabelOne.innerText = rangeOne.value;
+  divRangeOne.appendChild(divLabelOne);
+  // maximum price range slider
+  const divRangeTwo = document.createElement("div");
+  const rangeTwo = document.createElement("input");
+  rangeTwo.setAttribute("type", "range");
+  rangeTwo.setAttribute("name", "rangeTwo");
+  rangeTwo.setAttribute("id", "rangeTwo");
+  rangeTwo.setAttribute("min", 0);
+  rangeTwo.setAttribute("max", 100);
+  rangeTwo.setAttribute("value", 100);
+  divRangeTwo.appendChild(rangeTwo);
+
+  // maximum price range label
+  const divLabelTwo = document.createElement("label");
+  divLabelTwo.setAttribute("for", "rangeTwo");
+  divLabelTwo.setAttribute("id", "rangeLabelTwo");
+  divLabelTwo.innerText = rangeTwo.value;
+  divRangeTwo.appendChild(divLabelTwo);
+  //
+  divSection.appendChild(divRangeOne);
+  divSection.appendChild(divRangeTwo);
+
+  return [divSection];
+};
+/* function: addEventListenerForRange */
+const addEventListenerForRange = () => {
+  const myRanges = document.querySelectorAll("input[type='range']");
+  const myLabels = document.querySelectorAll("label");
+  let myRangeId = "";
+  let myLabelFor = "";
+  for (let range = 0; range < myRanges.length; range++) {
+    for (let lbl = 0; lbl < myLabels.length; lbl++) {
+      myRangeId = myRanges[range].getAttribute("id");
+      myLabelFor = myLabels[lbl].getAttribute("for");
+      if (myRangeId === myLabelFor) {
+        myRanges[range].addEventListener("input", (ev) => {
+          myLabels[lbl].innerText = ev.target.value;
+          console.log(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+        });
+      }
+    }
+  }
+};
+//
+/* function addButton */
+const addButton = (...buttonNames) => {
   const buttonsContainer = [];
   for (let button = 0; button < buttonNames.length; button++) {
     const aButtonContainer = document.createElement("div");
@@ -136,6 +151,15 @@ const addButtonForMe = (...buttonNames) => {
   }
   return buttonsContainer;
 };
+/* function: resetFilters */
+const resetFilters = () => {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  for (let checkbox of checkboxes) {
+    if (checkbox.checked) {
+      checkbox.checked = false;
+    }
+  }
+};
 /* function: addToCriteriaSectionForMe */
 const addToCriteriaSectionForMe = (criteria) => {
   const sectionCriteria = document.querySelector("#criteria");
@@ -146,19 +170,6 @@ const addToShapesSectionForMe = (newShapes) => {
   const sectionShapes = document.querySelector("#shapes");
   return sectionShapes.append(...newShapes);
 };
-/* function: createGridForMe */
-const createGridForMe = (...shapesNames) => {
-  const prison = document.createElement("div");
-  prison.setAttribute("id", "prison");
-  prison.setAttribute("class", "prison");
-  for (let gridcell = 0; gridcell < shapesNames.length; gridcell++) {
-    const cell = document.createElement("div");
-    cell.innerText = shapesNames[gridcell];
-    prison.appendChild(cell);
-  }
-  return [prison];
-};
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* function: drawSquare */
 const drawSquare = (sizeValue, colorText, priceText) => {
   const squareCanvas = document.createElement("canvas");
@@ -169,7 +180,7 @@ const drawSquare = (sizeValue, colorText, priceText) => {
   ctx.fillStyle = colorText;
   ctx.fillRect(0, 0, sizeValue, sizeValue);
   //
-  ctx.font = "1.1rem comic sans ms";
+  ctx.font = "1.1rem sans serif";
   ctx.fillStyle = "white";
   ctx.textBaseline = "middle";
   ctx.textAlign = "center";
@@ -197,7 +208,7 @@ const drawCircle = (sizeValue, colorText, priceText) => {
   ctx.fill();
   ctx.stroke();
   //
-  ctx.font = "1.1rem comic sans ms";
+  ctx.font = "1.1rem sans serif";
   ctx.fillStyle = "white";
   ctx.textBaseline = "middle";
   ctx.textAlign = "center";
@@ -205,67 +216,87 @@ const drawCircle = (sizeValue, colorText, priceText) => {
   //
   return circleCanvas;
 };
-//
-const dynamic = document.body;
-//
-let circleData = {};
-circleData = {
-  sizeCircle: "150",
-  colorCircle: "blue",
-  priceCircle: "€100"
+const createPrison = (shapesNames) => {
+  const prison = document.createElement("div");
+  prison.setAttribute("id", "prison");
+  prison.setAttribute("class", "prison");
+
+  for (let shape = 0; shape < shapesNames.length; shape++) {
+    const cell = document.createElement("div");
+    switch (shapesNames[shape].shape) {
+      case "circle":
+        const circleObj = drawCircle(
+          150,
+          shapesNames[shape].color,
+          shapesNames[shape].price
+        );
+        cell.appendChild(circleObj);
+        break;
+      case "square":
+        const squareObj = drawSquare(
+          150,
+          shapesNames[shape].color,
+          shapesNames[shape].price
+        );
+        cell.appendChild(squareObj);
+        break;
+    }
+    prison.appendChild(cell);
+  }
+  return [prison];
 };
-//
-dynamic.appendChild(
-  drawCircle(
-    circleData.sizeCircle,
-    circleData.colorCircle,
-    circleData.priceCircle
-  )
-);
-//
-let squareData = {};
-squareData = {
-  sizeSquare: "150",
-  colorSquare: "purple",
-  priceSquare: "€80"
+/************/
+/* kladblok */
+/************/
+const criteria = {
+  red: false,
+  blue: false,
+  purple: false,
+  square: false,
+  circle: false,
+  minprice: 0,
+  maxprice: 0
 };
-squareData = {
-  sizeSquare: "150",
-  colorSquare: "red",
-  priceSquare: "€40"
+/* function: displayShapeDataForMe */
+const displayShapeDataForMe = (arrayIn) => {
+  let count = 0;
+  arrayIn.forEach((figure) => {
+    let row = Object.values(figure);
+    console.log(row);
+    return row;
+  });
 };
-//
-dynamic.appendChild(
-  drawSquare(
-    squareData.sizeSquare,
-    squareData.colorSquare,
-    squareData.priceSquare
-  )
-);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/* function: immediate funtion */
+//displayShapeDataForMe(shapesArray);
+/* function: priceFilter */
+function priceFilter(minp, maxp, arrayIn) {
+  let result = [];
+  for (let t = 0; t < arrayIn.length; t++) {
+    if (arrayIn[t].price >= minp && arrayIn[t].price <= maxp) {
+      result = [...result, arrayIn[t]];
+    }
+  }
+  return result;
+} /* function: colorFilter */
+function colorFilter(colorChecked, arrayIn) {
+  let result = [];
+  for (let t = 0; t < arrayIn.length; t++) {
+    if (arrayIn[t].color === colorChecked) {
+      result = [...result, arrayIn[t]];
+    }
+  }
+  return result;
+}
+/* function: immediate function */
 (() => {
   addToCriteriaSectionForMe(
     createCheckboxesForMe("color", "red", "blue", "purple")
   );
   addToCriteriaSectionForMe(createCheckboxesForMe("shape", "square", "circle"));
-  addToCriteriaSectionForMe(createRangeSlidersForMe("minprice", "maxprice"));
-  addToCriteriaSectionForMe(addButtonForMe("reset filters"));
   //
-  addToShapesSectionForMe(
-    createGridForMe(
-      "hello",
-      "world",
-      "your",
-      "mammy",
-      "hello",
-      "world",
-      "your",
-      "mammy",
-      "hello",
-      "world",
-      "your",
-      "mammy"
-    )
-  );
+  addToCriteriaSectionForMe(createRangeSlider());
+  addEventListenerForRange();
+  //
+  addToCriteriaSectionForMe(addButton("reset filters"));
+  //
+  addToShapesSectionForMe(createPrison(colorFilter("red", shapesArray)));
 })();

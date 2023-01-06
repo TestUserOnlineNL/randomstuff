@@ -219,8 +219,8 @@ const createCheckboxes = (namesArray) => {
         divCheckbox.setAttribute("class", "divCheckbox");
         const checkboxInput = document.createElement("input");
         checkboxInput.setAttribute("type", "checkbox");
-        checkboxInput.setAttribute("id", namesArray[item]);
-        checkboxInput.setAttribute("name", Object.keys(namesArray[item]));
+        checkboxInput.setAttribute("id", Object.values(namesArray[item]));
+        checkboxInput.setAttribute("name", Object.values(namesArray[item]));
         checkboxInput.setAttribute("value", Object.values(namesArray[item]));
         checkboxInput.addEventListener("input", _ => {
             checkboxInput.checked ?
@@ -232,7 +232,7 @@ const createCheckboxes = (namesArray) => {
         //
         log(Object.keys(namesArray[item]));
         const checkboxLabel = document.createElement("label");
-        checkboxLabel.setAttribute("for", namesArray[item]);
+        checkboxLabel.setAttribute("for", Object.values(namesArray[item]));
         checkboxLabel.innerText = Object.values(namesArray[item]);
         divCheckbox.appendChild(checkboxInput);
         divCheckbox.appendChild(checkboxLabel);

@@ -188,7 +188,7 @@ const addRangeEventListener = () => {
 // execute function: addRangeEventListener
 addRangeEventListener();
 //
-// function: compare labels For with ranges Id
+// function: compare label 'For' attribute with range 'Id' attribute
 const compareAttributes = () => {
     const myRanges = document.querySelectorAll("input[type='range']");
     const myLabels = document.querySelectorAll("label");
@@ -221,25 +221,30 @@ const createCheckboxes = (namesArray) => {
         checkboxInput.setAttribute("type", "checkbox");
         checkboxInput.setAttribute("id", namesArray[item]);
         checkboxInput.setAttribute("name", namesArray[item]);
-        checkboxInput.setAttribute("value", namesArray[item]);
+        checkboxInput.setAttribute("value", Object.values(namesArray[item]));
         checkboxInput.addEventListener("input", _ => {
             checkboxInput.checked ?
                 checkboxesArray.push(namesArray[item]) :
                 deleteFromArray(checkboxesArray, namesArray[item]);
             log(checkboxesArray);
+            return checkboxesArray;
         });
         //
+        log(Object.keys(namesArray[item]));
         const checkboxLabel = document.createElement("label");
         checkboxLabel.setAttribute("for", namesArray[item]);
-        checkboxLabel.innerText = namesArray[item];
+        checkboxLabel.innerText = Object.values(namesArray[item]);
         divCheckbox.appendChild(checkboxInput);
         divCheckbox.appendChild(checkboxLabel);
         checkboxControls.appendChild(divCheckbox);
     }
 }
-createCheckboxes(["red", "green", "blue", "yellow", "square", "circle"]);
+createCheckboxes([{ "color": "red" }, { "color": "green" }, { "color": "blue" }, { "color": "yellow" }, { "shape": "square" }, { "shape": "circle" }]);
+// function: searchInObjectsArray
+const mySearch = JSON.parse('{ "shape": "square", "color": "blue", "price": 20 }');
+const searchInObjectsArray = (objectsArray, searchObject) => {
+    const idx = objectsArray.findIndex(item => JSON.stringify(item) === JSON.stringify(searchObject));
+    log("object found at index: " + idx);
+}
+searchInObjectsArray(shapesArray, mySearch);
 //
-// compare objects
-const myObj = JSON.parse('{ "shape": "square", "color": "blue", "price": 20 }');
-const idx = shapesArray.findIndex(item => JSON.stringify(item) === JSON.stringify(myObj));
-log(idx);

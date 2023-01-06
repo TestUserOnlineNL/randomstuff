@@ -220,7 +220,7 @@ const createCheckboxes = (namesArray) => {
         const checkboxInput = document.createElement("input");
         checkboxInput.setAttribute("type", "checkbox");
         checkboxInput.setAttribute("id", namesArray[item]);
-        checkboxInput.setAttribute("name", namesArray[item]);
+        checkboxInput.setAttribute("name", Object.keys(namesArray[item]));
         checkboxInput.setAttribute("value", Object.values(namesArray[item]));
         checkboxInput.addEventListener("input", _ => {
             checkboxInput.checked ?

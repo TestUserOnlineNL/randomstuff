@@ -20,7 +20,18 @@ const addEventListenerForCheckbox = (elementName, typeEvent) => {
   elementName.addEventListener(typeEvent, (e) => {
     const output = e.target.id.split("-");
     const objectJSON = JSON.parse(`{"${output[0]}":"${output[1]}"}`);
-    checkboxObjArray.push(objectJSON);
+    let index = 0;
+    if (e.target.checked) {
+      checkboxObjArray.push(objectJSON);
+      console.log(checkboxObjArray);
+    } else {
+      index = checkboxObjArray.findIndex((item) => {
+        if (item === objectJSON) {
+          checkboxObjArray.splice(index, 1);
+          console.log(index);
+        }
+      });
+    }
     console.log(checkboxObjArray);
   });
 };
@@ -159,6 +170,23 @@ const resetFilters = () => {
       checkbox.checked = false;
     }
   }
+  const myRanges = document.querySelectorAll("input[type='range']");
+  const myLabels = document.querySelectorAll("label");
+  let myRangeId = "";
+  let myLabelFor = "";
+  for (let range = 0; range < myRanges.length; range++) {
+    for (let lbl = 0; lbl < myLabels.length; lbl++) {
+      myRangeId = myRanges[range].getAttribute("id");
+      myLabelFor = myLabels[lbl].getAttribute("for");
+      if (myRangeId === myLabelFor) {
+        myRanges[0].value = 0;
+        myRanges[1].value = 100;
+        //
+        myLabels[5].innerText = 0;
+        myLabels[6].innerText = 100;
+      }
+    }
+  }
 };
 /* function: addToCriteriaSectionForMe */
 const addToCriteriaSectionForMe = (criteria) => {
@@ -257,16 +285,6 @@ const criteria = {
   minprice: 0,
   maxprice: 0
 };
-/* function: displayShapeDataForMe */
-const displayShapeDataForMe = (arrayIn) => {
-  let count = 0;
-  arrayIn.forEach((figure) => {
-    let row = Object.values(figure);
-    console.log(row);
-    return row;
-  });
-};
-//displayShapeDataForMe(shapesArray);
 /* function: priceFilter */
 function priceFilter(minp, maxp, arrayIn) {
   let result = [];
@@ -276,11 +294,22 @@ function priceFilter(minp, maxp, arrayIn) {
     }
   }
   return result;
-} /* function: colorFilter */
+}
+/* function: colorFilter */
 function colorFilter(colorChecked, arrayIn) {
   let result = [];
   for (let t = 0; t < arrayIn.length; t++) {
     if (arrayIn[t].color === colorChecked) {
+      result = [...result, arrayIn[t]];
+    }
+  }
+  return result;
+}
+/* function: shapeFilter */
+function shapeFilter(shapeChecked, arrayIn) {
+  let result = [];
+  for (let t = 0; t < arrayIn.length; t++) {
+    if (arrayIn[t].shape === shapeChecked) {
       result = [...result, arrayIn[t]];
     }
   }
@@ -298,5 +327,5 @@ function colorFilter(colorChecked, arrayIn) {
   //
   addToCriteriaSectionForMe(addButton("reset filters"));
   //
-  addToShapesSectionForMe(createPrison(colorFilter("red", shapesArray)));
+  addToShapesSectionForMe(createPrison(shapesArray));
 })();

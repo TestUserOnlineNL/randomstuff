@@ -216,6 +216,7 @@ const createCheckboxes = (namesArray) => {
     const checkboxesArray = new Array;
     for (let item = 0; item < namesArray.length; item++) {
         const divCheckbox = document.createElement("div");
+        divCheckbox.setAttribute("class", "divCheckbox");
         const checkboxInput = document.createElement("input");
         checkboxInput.setAttribute("type", "checkbox");
         checkboxInput.setAttribute("id", namesArray[item]);

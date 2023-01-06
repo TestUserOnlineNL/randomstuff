@@ -202,3 +202,43 @@ const compareAttributes = () => {
     }
 }
 compareAttributes();
+// function: deleteFromArray
+const deleteFromArray = (arrayName, itemValue) => {
+    const index = arrayName.indexOf(itemValue);
+    if (index > -1) {
+        arrayName.splice(index, 1);
+    }
+}
+// function: createCheckboxes
+const createCheckboxes = (namesArray) => {
+    const checkboxControls = document.querySelector("#checkboxControls");
+    //
+    const checkboxesArray = new Array;
+    for (let item = 0; item < namesArray.length; item++) {
+        const divCheckbox = document.createElement("div");
+        const checkboxInput = document.createElement("input");
+        checkboxInput.setAttribute("type", "checkbox");
+        checkboxInput.setAttribute("id", namesArray[item]);
+        checkboxInput.setAttribute("name", namesArray[item]);
+        checkboxInput.setAttribute("value", namesArray[item]);
+        checkboxInput.addEventListener("input", _ => {
+            checkboxInput.checked ?
+                checkboxesArray.push(namesArray[item]) :
+                deleteFromArray(checkboxesArray, namesArray[item]);
+            log(checkboxesArray);
+        });
+        //
+        const checkboxLabel = document.createElement("label");
+        checkboxLabel.setAttribute("for", namesArray[item]);
+        checkboxLabel.innerText = namesArray[item];
+        divCheckbox.appendChild(checkboxInput);
+        divCheckbox.appendChild(checkboxLabel);
+        checkboxControls.appendChild(divCheckbox);
+    }
+}
+createCheckboxes(["red", "green", "blue", "yellow", "square", "circle"]);
+//
+// compare objects
+const myObj = JSON.parse('{ "shape": "square", "color": "blue", "price": 20 }');
+const idx = shapesArray.findIndex(item => JSON.stringify(item) === JSON.stringify(myObj));
+log(idx);

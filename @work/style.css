@@ -1,35 +1,35 @@
 *,
 *::before,
 *::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-    font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 1rem;
 }
 
 body {
-    background-color: blue;
-    color: pink;
+  background-color: blue;
+  color: pink;
 }
 
 .appTitle {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 .rangeDiv {
-    padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .divCheckbox {
-    padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
 
 input[type="checkbox"] {
-    height: 1.1rem;
-    width: 1.1rem;
+  height: 1.1rem;
+  width: 1.1rem;
 }
 
 label {
-    padding: 0.2rem;
+  padding: 0.2rem;
 }

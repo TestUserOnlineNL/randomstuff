@@ -153,7 +153,7 @@ divLabelTwo.innerText = rangeTwo.value;
 divRangeTwo.appendChild(divLabelTwo);
 // function: addRangeEventListener
 const addRangeEventListener = () => {
-  const myRanges = document.querySelectorAll("input[type='range']");
+  const myRanges = document.querySelectorAll("input[type='ra=== kladblok ===nge']");
   const myLabels = document.querySelectorAll("label");
   let myRangeId = "";
   let myLabelFor = "";
@@ -234,63 +234,22 @@ createCheckboxes([
 ]);
 //
 // === kladblok ===
-// const filterData = [
-//   { shape: "square", color: "red", price: 100 },
-//   { shape: "circle", color: "red" },
-//   { shape: "square" },
-//   { shape: "circle", price: 100 },
-//   { price: 0 },
-//   {}
-// ];
-// // filter objects by length
-// const filteredData = filterData.filter((el) => {
-//   switch (Object.keys(el).length) {
-//     case 3:
-//       return Object.entries(el);
-//       break;
-//     case 2:
-//       return Object.entries(el);
-//       break;
-//     case 1:
-//       return Object.entries(el);
-//       break;
-//     default:
-//       break;
-//   }
-// });
-//log(filteredData);
-//
-// let myFig = "square";
-// let myColor = "red";
-//
-// const newArray = shapesArray.filter(
-//   (fig) => fig.shape === `${myFig}` && fig.color === `${myColor}`
-// );
-//
-// for (let obj in newArray) {
-//   let objkeys = Object.keys(newArray[obj]);
-//   for (let okey in objkeys) {
-//     log(objkeys[okey]);
-//   }
-// }
-// for (let obj in newArray) {
-//   let objvalues = Object.values(newArray[obj]);
-//   for (let ovalue in objvalues) {
-//     log(objvalues[ovalue]);
-//   }
-// }
-// log(newArray);
-//
 const tempData = {
   shape: [],
   color: []
 };
-
+const colorObject = {
+  color:"red"
+};
+const shapeObject = {
+  shape:"square"
+}
 const pushObjectValue = (someObject, someArray) => {
   const k = Object.keys(someObject);
   const v = Object.values(someObject);
   someArray[k].push(v);
   return;
 };
-pushObjectValue({ color: "red" }, tempData);
+pushObjectValue(shapeObject, tempData);
 log(tempData);
+//

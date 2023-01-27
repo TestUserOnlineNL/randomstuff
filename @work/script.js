@@ -64,10 +64,6 @@ const shapesArray = [
   { shape: "circle", color: "blue", price: 100 }
 ];
 //
-const filterData = {
-  shape: [],
-  color: []
-};
 //============================
 /*
  function: myFullname
@@ -230,29 +226,71 @@ const createCheckboxes = (namesArray) => {
   }
 };
 createCheckboxes([
+  { color: "purple" },
   { color: "red" },
-  { color: "green" },
   { color: "blue" },
-  { color: "yellow" },
   { shape: "square" },
   { shape: "circle" }
 ]);
 //
 // === kladblok ===
+// const filterData = [
+//   { shape: "square", color: "red", price: 100 },
+//   { shape: "circle", color: "red" },
+//   { shape: "square" },
+//   { shape: "circle", price: 100 },
+//   { price: 0 },
+//   {}
+// ];
+// // filter objects by length
+// const filteredData = filterData.filter((el) => {
+//   switch (Object.keys(el).length) {
+//     case 3:
+//       return Object.entries(el);
+//       break;
+//     case 2:
+//       return Object.entries(el);
+//       break;
+//     case 1:
+//       return Object.entries(el);
+//       break;
+//     default:
+//       break;
+//   }
+// });
+//log(filteredData);
 //
-log("filterKeys: " + Object.keys(filterData));
+// let myFig = "square";
+// let myColor = "red";
 //
-filterData.shape.push("circle");
-filterData.shape.push("square");
+// const newArray = shapesArray.filter(
+//   (fig) => fig.shape === `${myFig}` && fig.color === `${myColor}`
+// );
 //
-filterData.color.push("red");
-filterData.color.push("blue");
+// for (let obj in newArray) {
+//   let objkeys = Object.keys(newArray[obj]);
+//   for (let okey in objkeys) {
+//     log(objkeys[okey]);
+//   }
+// }
+// for (let obj in newArray) {
+//   let objvalues = Object.values(newArray[obj]);
+//   for (let ovalue in objvalues) {
+//     log(objvalues[ovalue]);
+//   }
+// }
+// log(newArray);
 //
-log(filterData);
-//
-const mk0 = Object.keys(filterData)[0];
-log(filterData[mk0]);
+const tempData = {
+  shape: [],
+  color: []
+};
 
-const mk1 = Object.keys(filterData)[1];
-log(filterData[mk1]);
-//
+const pushObjectValue = (someObject, someArray) => {
+  const k = Object.keys(someObject);
+  const v = Object.values(someObject);
+  someArray[k].push(v);
+  return;
+};
+pushObjectValue({ color: "red" }, tempData);
+log(tempData);

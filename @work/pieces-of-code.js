@@ -47,6 +47,25 @@ const dateTimestamp = () => {
 //
 log(dateTimestamp());
 //=======================================================================
+/*
+ function: myFullname
+ pass object to function as parameters
+*/
+const myFullname = ({ firstname = "", lastname = "", gender = "" }) => {
+  return {
+    firstname,
+    lastname,
+    gender
+  };
+};
+const myPersonalData = {
+  firstname: "Paas",
+  lastname: "Haas",
+  gender: "Male"
+};
+(() => {
+  log(myFullname(myPersonalData));
+})();
 /* TEST DATA */
 const shapesArray = [
     { shape: "square", color: "purple", price: 0 },
@@ -111,10 +130,47 @@ for (let obj in newArray) {
 }
 log(newArray);
 //
-// destructuring a object
+// destructuring an object
 const cartoonName = {
     firstName: "Bugs",
     lastName: "Bunny"
 }
 let { firstName: fName, lastName: lName } = cartoonName;
 lprint(fName + " " + lName);
+//
+// function: compare label 'For' attribute with range 'Id' attribute
+const compareAttributes = () => {
+  const myRanges = document.querySelectorAll("input[type='range']");
+  const myLabels = document.querySelectorAll("label");
+  let myRangeId,
+    myLabelFor = "";
+  for (let range = 0; range < myRanges.length; range++) {
+    for (let lbl = 0; lbl < myLabels.length; lbl++) {
+      myRangeId = myRanges[range].getAttribute("id");
+      myLabelFor = myLabels[lbl].getAttribute("for");
+      if (myRangeId === myLabelFor) console.log(myLabelFor);
+    }
+  }
+};
+compareAttributes();
+//
+const tempData = {
+    shape: [],
+    color: []
+  };
+  
+  const pushObjectValue = (someObject, someArray) => {
+    const k = Object.keys(someObject);
+    const v = Object.values(someObject);
+    someArray[k].push(v);
+    return;
+  };
+  pushObjectValue({ color: "red" }, tempData);
+  log(tempData);
+  //
+  // object destructuring
+  const minmax = { min_price: 10, max_price: 20 };
+  const { min_price, max_price } = minmax;
+  lprint(min_price);
+  lprint(max_price);
+  //

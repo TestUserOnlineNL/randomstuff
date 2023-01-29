@@ -64,27 +64,7 @@ const shapesArray = [
   { shape: "circle", color: "blue", price: 100 }
 ];
 //
-//============================
-/*
- function: myFullname
- pass object to function as parameters
-*/
-const myFullname = ({ firstname = "", lastname = "", gender = "" }) => {
-  return {
-    firstname,
-    lastname,
-    gender
-  };
-};
-const myPersonalData = {
-  firstname: "Paas",
-  lastname: "Haas",
-  gender: "Male"
-};
-(() => {
-  log(myFullname(myPersonalData));
-})();
-//
+// function: printObjectOutput
 const printObjectOutput = (dataObject) => {
   const divContainer = document.createElement("div");
   divContainer.style.margin = "0.25rem 0.5rem";
@@ -101,6 +81,7 @@ const printObjectOutput = (dataObject) => {
 //
 //============================
 /*** range slider filter by min & max value ***/
+//
 // function: rangeValuesCheck
 const rangeValuesCheck = (minValue, maxValue) => {
   let min_price, max_price;
@@ -112,6 +93,15 @@ const rangeValuesCheck = (minValue, maxValue) => {
     max_price = maxValue;
   }
   return { min_price, max_price };
+};
+//
+// function: rangePriceFilter
+const rangePriceFilter = (minmax) => {
+  const { min_price: minprice, max_price: maxprice } = minmax;
+  const newArray = shapesArray.filter(
+    (obj) => obj.price >= minprice && obj.price <= maxprice
+  );
+  return newArray;
 };
 //
 const section = document.querySelector("#rangeControls");
@@ -153,7 +143,7 @@ divLabelTwo.innerText = rangeTwo.value;
 divRangeTwo.appendChild(divLabelTwo);
 // function: addRangeEventListener
 const addRangeEventListener = () => {
-  const myRanges = document.querySelectorAll("input[type='ra=== kladblok ===nge']");
+  const myRanges = document.querySelectorAll("input[type='range']");
   const myLabels = document.querySelectorAll("label");
   let myRangeId = "";
   let myLabelFor = "";
@@ -164,7 +154,9 @@ const addRangeEventListener = () => {
       if (myRangeId === myLabelFor) {
         myRanges[range].addEventListener("input", (ev) => {
           myLabels[lbl].innerText = ev.target.value;
-          console.log(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+          log(
+            rangePriceFilter(rangeValuesCheck(rangeOne.value, rangeTwo.value))
+          );
           printObjectOutput(rangeValuesCheck(rangeOne.value, rangeTwo.value));
         });
       }
@@ -173,22 +165,6 @@ const addRangeEventListener = () => {
 };
 // execute function: addRangeEventListener
 addRangeEventListener();
-//
-// function: compare label 'For' attribute with range 'Id' attribute
-const compareAttributes = () => {
-  const myRanges = document.querySelectorAll("input[type='range']");
-  const myLabels = document.querySelectorAll("label");
-  let myRangeId,
-    myLabelFor = "";
-  for (let range = 0; range < myRanges.length; range++) {
-    for (let lbl = 0; lbl < myLabels.length; lbl++) {
-      myRangeId = myRanges[range].getAttribute("id");
-      myLabelFor = myLabels[lbl].getAttribute("for");
-      if (myRangeId === myLabelFor) console.log(myLabelFor);
-    }
-  }
-};
-compareAttributes();
 //
 // function: deleteFromArray
 const deleteFromArray = (arrayName, itemValue) => {
@@ -238,18 +214,13 @@ const tempData = {
   shape: [],
   color: []
 };
-const colorObject = {
-  color:"red"
-};
-const shapeObject = {
-  shape:"square"
-}
+
 const pushObjectValue = (someObject, someArray) => {
   const k = Object.keys(someObject);
   const v = Object.values(someObject);
   someArray[k].push(v);
   return;
 };
-pushObjectValue(shapeObject, tempData);
+pushObjectValue({ color: "red" }, tempData);
 log(tempData);
 //

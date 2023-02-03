@@ -29,6 +29,20 @@ const lprintArrObj = (arrToPrint) => {
     }
   }
 };
+/*** function: printObjectOutput ***/
+const printObjectOutput = (dataObject) => {
+  const divContainer = document.createElement("div");
+  divContainer.style.margin = "0.25rem 0.5rem";
+  divContainer.style.backgroundColor = "grey";
+  divContainer.style.width = "14.5rem";
+  divContainer.style.padding = "0.25rem";
+  let tekst = "";
+  for (const [key, value] of Object.entries(dataObject)) {
+    tekst += `${key}: ${value} `;
+  }
+  divContainer.innerText = tekst;
+  return document.body.appendChild(divContainer);
+};
 /*** function dateTimestamp ***/
 const dateTimestamp = () => {
   const options = {
@@ -64,19 +78,10 @@ const shapesArray = [
   { shape: "circle", color: "blue", price: 100 }
 ];
 //
-// function: printObjectOutput
-const printObjectOutput = (dataObject) => {
-  const divContainer = document.createElement("div");
-  divContainer.style.margin = "0.25rem 0.5rem";
-  divContainer.style.backgroundColor = "grey";
-  divContainer.style.width = "14.5rem";
-  divContainer.style.padding = "0.25rem";
-  let tekst = "";
-  for (const [key, value] of Object.entries(dataObject)) {
-    tekst += `${key}: ${value} `;
-  }
-  divContainer.innerText = tekst;
-  return document.body.appendChild(divContainer);
+const toFilterObjectData = {
+  color: [],
+  shape: [],
+  price: [0, 20, 40, 60, 80, 100]
 };
 //
 //============================
@@ -94,16 +99,18 @@ const rangeValuesCheck = (minValue, maxValue) => {
   }
   return { min_price, max_price };
 };
-//
-// function: rangePriceFilter
-const rangePriceFilter = (minmax) => {
+// function: getPrice
+const getPrice = (minmax) => {
   const { min_price: minprice, max_price: maxprice } = minmax;
-  const newArray = shapesArray.filter(
-    (obj) => obj.price >= minprice && obj.price <= maxprice
-  );
-  return newArray;
+  let foundPrices = [];
+  shapesArray.forEach((figureObject) => {
+    if (figureObject.price >= minprice && figureObject.price <= maxprice) {
+      foundPrices.push(figureObject.price);
+    }
+  });
+  toFilterObjectData["price"] = foundPrices;
 };
-//
+// get 'id' of 'section' html page
 const section = document.querySelector("#rangeControls");
 // minimum price range slider
 const divRangeOne = document.createElement("div");
@@ -154,10 +161,7 @@ const addRangeEventListener = () => {
       if (myRangeId === myLabelFor) {
         myRanges[range].addEventListener("input", (ev) => {
           myLabels[lbl].innerText = ev.target.value;
-          log(
-            rangePriceFilter(rangeValuesCheck(rangeOne.value, rangeTwo.value))
-          );
-          printObjectOutput(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+          getPrice(rangeValuesCheck(rangeOne.value, rangeTwo.value));
         });
       }
     }
@@ -165,7 +169,20 @@ const addRangeEventListener = () => {
 };
 // execute function: addRangeEventListener
 addRangeEventListener();
-//
+// function: filterCheckboxObjects
+const filterCheckboxObjects = (objArray) => {
+  const colorsArray = [];
+  const shapesArray = [];
+  objArray.forEach((obj) => {
+    if (Object.keys(obj) == "color") {
+      colorsArray.push(obj.color);
+    } else {
+      shapesArray.push(obj.shape);
+    }
+  });
+  toFilterObjectData["color"] = colorsArray;
+  toFilterObjectData["shape"] = shapesArray;
+};
 // function: deleteFromArray
 const deleteFromArray = (arrayName, itemValue) => {
   const index = arrayName.indexOf(itemValue);
@@ -190,7 +207,7 @@ const createCheckboxes = (namesArray) => {
       checkboxInput.checked
         ? checkboxesArray.push(namesArray[item])
         : deleteFromArray(checkboxesArray, namesArray[item]);
-      log(checkboxesArray);
+      filterCheckboxObjects(checkboxesArray);
     });
     //
     const checkboxLabel = document.createElement("label");
@@ -201,6 +218,7 @@ const createCheckboxes = (namesArray) => {
     checkboxControls.appendChild(divCheckbox);
   }
 };
+// execute function: createCheckboxes
 createCheckboxes([
   { color: "purple" },
   { color: "red" },
@@ -210,17 +228,16 @@ createCheckboxes([
 ]);
 //
 // === kladblok ===
-const tempData = {
-  shape: [],
-  color: []
+const multiFilter = (arr, filters) => {
+  let filterKeys = Object.keys(filters);
+  return arr.filter((eachObj) => {
+    return filterKeys.every((eachKey) => {
+      if (!filters[eachKey].length) {
+        return true; // passing an empty filter means that filter is ignored.
+      }
+      return filters[eachKey].includes(eachObj[eachKey]);
+    });
+  });
 };
-
-const pushObjectValue = (someObject, someArray) => {
-  const k = Object.keys(someObject);
-  const v = Object.values(someObject);
-  someArray[k].push(v);
-  return;
-};
-pushObjectValue({ color: "red" }, tempData);
-log(tempData);
-//
+// execute function: multiFilter
+multiFilter(shapesArray, toFilterObjectData);

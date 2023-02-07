@@ -121,7 +121,7 @@ const getPrice = (minmax) => {
   });
   toFilterObjectData["price"] = foundPrices;
 };
-/* ranges code block */
+/* function: createRanges */
 const createRanges = () => {
   // get 'id' of 'section' html page
   const section = document.querySelector("#rangeControls");

@@ -61,7 +61,7 @@ const dateTimestamp = () => {
 //
 log(dateTimestamp());
 //
-//============================
+//=====================================================================
 /* TEST DATA */
 const shapesArray = [
   { shape: "square", color: "purple", price: 0 },
@@ -81,10 +81,21 @@ const shapesArray = [
 const toFilterObjectData = {
   color: [],
   shape: [],
-  price: [0, 20, 40, 60, 80, 100]
+  price: []
 };
-//
-//============================
+// function: multiFilter
+const multiFilter = (arr, filters) => {
+  let filterKeys = Object.keys(filters);
+  return arr.filter((eachObj) => {
+    return filterKeys.every((eachKey) => {
+      if (!filters[eachKey].length) {
+        return true; // passing an empty filter means that filter is ignored.
+      }
+      return filters[eachKey].includes(eachObj[eachKey]);
+    });
+  });
+};
+//=====================================================================
 /*** range slider filter by min & max value ***/
 //
 // function: rangeValuesCheck
@@ -110,44 +121,49 @@ const getPrice = (minmax) => {
   });
   toFilterObjectData["price"] = foundPrices;
 };
-// get 'id' of 'section' html page
-const section = document.querySelector("#rangeControls");
-// minimum price range slider
-const divRangeOne = document.createElement("div");
-const rangeOne = document.createElement("input");
-rangeOne.setAttribute("type", "range");
-rangeOne.setAttribute("name", "rangeOne");
-rangeOne.setAttribute("id", "rangeOne");
-rangeOne.setAttribute("min", 0);
-rangeOne.setAttribute("max", 100);
-rangeOne.setAttribute("value", 0);
-divRangeOne.appendChild(rangeOne);
-divRangeOne.setAttribute("class", "rangeDiv");
-section.appendChild(divRangeOne);
-// minimum price range label
-const divLabelOne = document.createElement("label");
-divLabelOne.setAttribute("for", "rangeOne");
-divLabelOne.setAttribute("id", "rangeLabelOne");
-divLabelOne.innerText = rangeOne.value;
-divRangeOne.appendChild(divLabelOne);
-// maximum price range slider
-const divRangeTwo = document.createElement("div");
-const rangeTwo = document.createElement("input");
-rangeTwo.setAttribute("type", "range");
-rangeTwo.setAttribute("name", "rangeTwo");
-rangeTwo.setAttribute("id", "rangeTwo");
-rangeTwo.setAttribute("min", 0);
-rangeTwo.setAttribute("max", 100);
-rangeTwo.setAttribute("value", 100);
-divRangeTwo.appendChild(rangeTwo);
-divRangeTwo.setAttribute("class", "rangeDiv");
-section.appendChild(divRangeTwo);
-// maximum price range label
-const divLabelTwo = document.createElement("label");
-divLabelTwo.setAttribute("for", "rangeTwo");
-divLabelTwo.setAttribute("id", "rangeLabelTwo");
-divLabelTwo.innerText = rangeTwo.value;
-divRangeTwo.appendChild(divLabelTwo);
+/* ranges code block */
+const createRanges = () => {
+  // get 'id' of 'section' html page
+  const section = document.querySelector("#rangeControls");
+  // minimum price range slider
+  const divRangeOne = document.createElement("div");
+  const rangeOne = document.createElement("input");
+  rangeOne.setAttribute("type", "range");
+  rangeOne.setAttribute("name", "rangeOne");
+  rangeOne.setAttribute("id", "rangeOne");
+  rangeOne.setAttribute("min", 0);
+  rangeOne.setAttribute("max", 100);
+  rangeOne.setAttribute("value", 0);
+  divRangeOne.appendChild(rangeOne);
+  divRangeOne.setAttribute("class", "rangeDiv");
+  section.appendChild(divRangeOne);
+  // minimum price range label
+  const divLabelOne = document.createElement("label");
+  divLabelOne.setAttribute("for", "rangeOne");
+  divLabelOne.setAttribute("id", "rangeLabelOne");
+  divLabelOne.innerText = rangeOne.value;
+  divRangeOne.appendChild(divLabelOne);
+  // maximum price range slider
+  const divRangeTwo = document.createElement("div");
+  const rangeTwo = document.createElement("input");
+  rangeTwo.setAttribute("type", "range");
+  rangeTwo.setAttribute("name", "rangeTwo");
+  rangeTwo.setAttribute("id", "rangeTwo");
+  rangeTwo.setAttribute("min", 0);
+  rangeTwo.setAttribute("max", 100);
+  rangeTwo.setAttribute("value", 100);
+  divRangeTwo.appendChild(rangeTwo);
+  divRangeTwo.setAttribute("class", "rangeDiv");
+  section.appendChild(divRangeTwo);
+  // maximum price range label
+  const divLabelTwo = document.createElement("label");
+  divLabelTwo.setAttribute("for", "rangeTwo");
+  divLabelTwo.setAttribute("id", "rangeLabelTwo");
+  divLabelTwo.innerText = rangeTwo.value;
+  divRangeTwo.appendChild(divLabelTwo);
+};
+// execute function: createRanges
+createRanges();
 // function: addRangeEventListener
 const addRangeEventListener = () => {
   const myRanges = document.querySelectorAll("input[type='range']");
@@ -162,6 +178,7 @@ const addRangeEventListener = () => {
         myRanges[range].addEventListener("input", (ev) => {
           myLabels[lbl].innerText = ev.target.value;
           getPrice(rangeValuesCheck(rangeOne.value, rangeTwo.value));
+          log(multiFilter(shapesArray, toFilterObjectData));
         });
       }
     }
@@ -169,6 +186,7 @@ const addRangeEventListener = () => {
 };
 // execute function: addRangeEventListener
 addRangeEventListener();
+//=====================================================================
 // function: filterCheckboxObjects
 const filterCheckboxObjects = (objArray) => {
   const colorsArray = [];
@@ -208,6 +226,7 @@ const createCheckboxes = (namesArray) => {
         ? checkboxesArray.push(namesArray[item])
         : deleteFromArray(checkboxesArray, namesArray[item]);
       filterCheckboxObjects(checkboxesArray);
+      log(multiFilter(shapesArray, toFilterObjectData));
     });
     //
     const checkboxLabel = document.createElement("label");
@@ -226,18 +245,5 @@ createCheckboxes([
   { shape: "square" },
   { shape: "circle" }
 ]);
-//
+//=====================================================================
 // === kladblok ===
-const multiFilter = (arr, filters) => {
-  let filterKeys = Object.keys(filters);
-  return arr.filter((eachObj) => {
-    return filterKeys.every((eachKey) => {
-      if (!filters[eachKey].length) {
-        return true; // passing an empty filter means that filter is ignored.
-      }
-      return filters[eachKey].includes(eachObj[eachKey]);
-    });
-  });
-};
-// execute function: multiFilter
-multiFilter(shapesArray, toFilterObjectData);

@@ -33,7 +33,6 @@ const multiFilter = (arr, filters) => {
   });
 };
 //=====================================================================
-//=====================================================================
 /*** range slider filter by min & max value ***/
 //
 // function: rangeValuesCheck
@@ -120,20 +119,6 @@ const addRangeEventListener = () => {
     }
   }
 };
-//=====================================================================
-/* function addButton */
-const createButton = (buttonName) => {
-  const reset_btn = document.querySelector("#resetValues");
-  const aButtonContainer = document.createElement("div");
-  aButtonContainer.setAttribute("class", "buttonContainer");
-  const aButton = document.createElement("button");
-  aButton.setAttribute("id", "button");
-  aButton.innerText = buttonName;
-  aButtonContainer.appendChild(aButton);
-  reset_btn.appendChild(aButtonContainer);
-};
-/* function: resetFilters */
-// TODO
 //=====================================================================
 // function: filterCheckboxObjects
 const filterCheckboxObjects = (objArray) => {
@@ -235,6 +220,8 @@ const drawCircle = (sizeValue, colorText, priceText) => {
 //=====================================================================
 const createPrison = (shapesNames) => {
   const sectionShapes = document.querySelector("#shapes");
+  const currentPrison = document.querySelector("#prison");
+  currentPrison.remove();
   const prison = document.createElement("div");
   prison.setAttribute("id", "prison");
   prison.setAttribute("class", "prison");
@@ -262,6 +249,40 @@ const createPrison = (shapesNames) => {
     prison.appendChild(cell);
   }
   sectionShapes.append(prison);
+};
+//=====================================================================
+/* function addButton */
+const createButton = (buttonName) => {
+  const reset_btn = document.querySelector("#resetValues");
+  const aButtonContainer = document.createElement("div");
+  aButtonContainer.setAttribute("class", "buttonContainer");
+  const aButton = document.createElement("button");
+  aButton.setAttribute("id", "button");
+  aButton.innerText = buttonName;
+  aButton.addEventListener("click", () => {
+    const ranges = document.querySelectorAll("input[type='range']");
+    ranges.forEach((range, idx) => {
+      if (range.getAttribute("id").includes("range")) {
+        idx > 0 ? (range.value = 100) : (range.value = 0);
+      }
+    });
+    const labels = document.querySelectorAll("label");
+    labels.forEach((label, idx) => {
+      if (label.getAttribute("for").includes("range")) {
+        idx > 0 ? (label.innerText = "100") : (label.innerText = "0");
+      }
+    });
+    //
+    const checkbxs = document.querySelectorAll("input[type='checkbox']");
+    checkbxs.forEach((box) => (box.checked = false));
+    toFilterObjectData.color = [];
+    toFilterObjectData.shape = [];
+    toFilterObjectData.price = [];
+    //
+    createPrison(multiFilter(shapesArray, toFilterObjectData));
+  });
+  aButtonContainer.appendChild(aButton);
+  reset_btn.appendChild(aButtonContainer);
 };
 //=====================================================================
 /* function: immediate function */

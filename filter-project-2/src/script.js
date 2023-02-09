@@ -1,4 +1,5 @@
 "use strict";
+const log = console.log;
 /* data: shapesArray */
 const shapesArray = [
   { shape: "square", color: "purple", price: 0 },
@@ -120,25 +121,17 @@ const addRangeEventListener = () => {
   }
 };
 //=====================================================================
-// function: filterCheckboxObjects
-const filterCheckboxObjects = (objArray) => {
-  const colorsArray = [];
-  const shapesArray = [];
-  objArray.forEach((obj) => {
-    if (Object.keys(obj) == "color") {
-      colorsArray.push(obj.color);
-    } else {
-      shapesArray.push(obj.shape);
-    }
-  });
-  toFilterObjectData["color"] = colorsArray;
-  toFilterObjectData["shape"] = shapesArray;
+// function: toAddOrNot
+const toAddOrNot = (objName, objKey, arrValue) => {
+  if (!objName[objKey].includes(arrValue)) {
+    objName[objKey].push(arrValue);
+  }
 };
-// function: deleteFromArray
-const deleteFromArray = (arrayName, itemValue) => {
-  const index = arrayName.indexOf(itemValue);
+// function: toRemoveOrNot
+const toRemoveOrNot = (objName, objKey, val) => {
+  const index = objName[objKey].indexOf(val);
   if (index > -1) {
-    arrayName.splice(index, 1);
+    objName[objKey].splice(index, 1);
   }
 };
 // function: createCheckboxes
@@ -155,10 +148,30 @@ const createCheckboxes = (namesArray) => {
     checkboxInput.setAttribute("name", Object.values(namesArray[item]));
     checkboxInput.setAttribute("value", Object.values(namesArray[item]));
     checkboxInput.addEventListener("input", (_) => {
-      checkboxInput.checked
-        ? checkboxesArray.push(namesArray[item])
-        : deleteFromArray(checkboxesArray, namesArray[item]);
-      filterCheckboxObjects(checkboxesArray);
+      let objData = namesArray[item];
+      if (checkboxInput.checked) {
+        if (Object.keys(objData) == "color") {
+          toAddOrNot(toFilterObjectData, Object.keys(objData), objData.color);
+        }
+        if (Object.keys(objData) == "shape") {
+          toAddOrNot(toFilterObjectData, Object.keys(objData), objData.shape);
+        }
+      } else {
+        if (Object.keys(objData) == "color") {
+          toRemoveOrNot(
+            toFilterObjectData,
+            Object.keys(objData),
+            objData.color
+          );
+        }
+        if (Object.keys(objData) == "shape") {
+          toRemoveOrNot(
+            toFilterObjectData,
+            Object.keys(objData),
+            objData.shape
+          );
+        }
+      }
       createPrison(multiFilter(shapesArray, toFilterObjectData));
     });
     //

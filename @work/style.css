@@ -5,31 +5,8 @@
   margin: 0;
   box-sizing: border-box;
   font-family: sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
-
 body {
-  background-color: blue;
-  color: pink;
-}
-
-.appTitle {
-  padding: 0.5rem;
-}
-
-.rangeDiv {
-  padding: 0.25rem 0.5rem;
-}
-
-.divCheckbox {
-  padding: 0.25rem 0.5rem;
-}
-
-input[type="checkbox"] {
-  height: 1.1rem;
-  width: 1.1rem;
-}
-
-label {
-  padding: 0.2rem;
+  background-color: lightblue;
 }

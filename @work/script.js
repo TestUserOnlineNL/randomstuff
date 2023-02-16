@@ -1,249 +1,83 @@
-"use strict";
-/*** function log ***/
-const log = (data) => {
-  console.log(data);
+const log = console.log;
+//
+// function: saveData
+const saveData = (key, store) => {
+  const myStore = window.localStorage;
+  myStore.setItem(key, JSON.stringify(store));
 };
-/*** function lprint ***/
-const lprint = (data) => {
-  const element = document.createElement("section");
-  element.textContent = data;
-  return document.body.appendChild(element), log(data);
+// function: readData
+const readData = (key) => {
+  const myStore = window.localStorage;
+  const retrieved = myStore.getItem(key);
+  return JSON.parse(retrieved);
 };
-/*** function lprintArr  ***/
-const lprintArr = (arrToPrint) => {
-  for (let i = 0; i < arrToPrint.length; i++) {
-    lprint(arrToPrint[i]);
-  }
+// function: calculateTotal
+const calculateTotal = (object) => {
+  let values = Object.values(object);
+  return values.reduce((total, amount) => total + amount, 0);
 };
-/*** function lprintObj ***/
-const lprintObj = (objname) => {
-  for (const [key, value] of Object.entries(objname)) {
-    lprint(`${key}: ${value}`);
-  }
+// function: calculateDifference
+const calculateDifference = (totalOne, totalTwo) => {
+  return parseFloat(((totalOne * 100 - totalTwo * 100) / 100).toFixed(2));
 };
-/*** function lprintArrObj ***/
-const lprintArrObj = (arrToPrint) => {
-  for (let i = 0; i < arrToPrint.length; i++) {
-    for (const [key, value] of Object.entries(arrToPrint[i])) {
-      lprint(`${key}: ${value}`);
-    }
-  }
-};
-/*** function: printObjectOutput ***/
-const printObjectOutput = (dataObject) => {
-  const divContainer = document.createElement("div");
-  divContainer.style.margin = "0.25rem 0.5rem";
-  divContainer.style.backgroundColor = "grey";
-  divContainer.style.width = "14.5rem";
-  divContainer.style.padding = "0.25rem";
-  let tekst = "";
-  for (const [key, value] of Object.entries(dataObject)) {
-    tekst += `${key}: ${value} `;
-  }
-  divContainer.innerText = tekst;
-  return document.body.appendChild(divContainer);
-};
-/*** function dateTimestamp ***/
-const dateTimestamp = () => {
-  const options = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-    //fractionalSecondDigits: 3,
-    hour12: false,
-    timeZone: "Europe/Amsterdam"
-  };
-  return new Intl.DateTimeFormat("nl-NL", options).format(new Date());
+// function: calculateBalance
+const calculateBalance = (totalOne, totalTwo) => {
+  return parseFloat(((totalOne * 100 + totalTwo * 100) / 100).toFixed(2));
 };
 //
-log(dateTimestamp());
+// define objects
+const totals = {
+  fixedIncomeTotal: 0,
+  fixedCostTotal: 0,
+  fixedBalance: 0,
+  variableIncomeTotal: 0,
+  variableCostTotal: 0,
+  variableBalance: 0,
+  balance: 0
+};
 //
-//=====================================================================
-/* TEST DATA */
-const shapesArray = [
-  { shape: "square", color: "purple", price: 0 },
-  { shape: "circle", color: "purple", price: 20 },
-  { shape: "square", color: "red", price: 40 },
-  { shape: "circle", color: "red", price: 0 },
-  { shape: "square", color: "blue", price: 20 },
-  { shape: "circle", color: "blue", price: 40 },
-  { shape: "square", color: "purple", price: 60 },
-  { shape: "circle", color: "purple", price: 80 },
-  { shape: "square", color: "red", price: 100 },
-  { shape: "circle", color: "red", price: 60 },
-  { shape: "square", color: "blue", price: 80 },
-  { shape: "circle", color: "blue", price: 100 }
-];
+const fixedIncome = {
+  salaryman: 1000,
+  salarywoman: 2000
+};
 //
-const toFilterObjectData = {
-  color: [],
-  shape: [],
-  price: []
+const fixedCost = {
+  rent: 500.25,
+  water: 50.0,
+  electricity: 100.0,
+  taxes: 125.75,
+  health_insurance: 150.0,
+  car_insurance: 50.0
 };
-// function: multiFilter
-const multiFilter = (arr, filters) => {
-  let filterKeys = Object.keys(filters);
-  return arr.filter((eachObj) => {
-    return filterKeys.every((eachKey) => {
-      if (!filters[eachKey].length) {
-        return true; // passing an empty filter means that filter is ignored.
-      }
-      return filters[eachKey].includes(eachObj[eachKey]);
-    });
-  });
-};
-//=====================================================================
-/*** range slider filter by min & max value ***/
 //
-// function: rangeValuesCheck
-const rangeValuesCheck = (minValue, maxValue) => {
-  let min_price, max_price;
-  if (parseInt(minValue) > parseInt(maxValue)) {
-    max_price = minValue;
-    min_price = maxValue;
-  } else {
-    min_price = minValue;
-    max_price = maxValue;
-  }
-  return { min_price, max_price };
+const variableIncome = {
+  garage_sale: 525.25,
+  birthday_money: 50.0,
+  random_sales: 200.34
 };
-// function: getPrice
-const getPrice = (minmax) => {
-  const { min_price: minprice, max_price: maxprice } = minmax;
-  let foundPrices = [];
-  shapesArray.forEach((figureObject) => {
-    if (figureObject.price >= minprice && figureObject.price <= maxprice) {
-      foundPrices.push(figureObject.price);
-    }
-  });
-  toFilterObjectData["price"] = foundPrices;
+//
+const variableCost = {
+  food: 375.25,
+  fuel: 250.0,
+  clothes: 75.0,
+  shoes: 125.0,
+  donations: 10.0
 };
-/* function: createRanges */
-const createRanges = () => {
-  // get 'id' of 'section' html page
-  const section = document.querySelector("#rangeControls");
-  // minimum price range slider
-  const divRangeOne = document.createElement("div");
-  const rangeOne = document.createElement("input");
-  rangeOne.setAttribute("type", "range");
-  rangeOne.setAttribute("name", "rangeOne");
-  rangeOne.setAttribute("id", "rangeOne");
-  rangeOne.setAttribute("min", 0);
-  rangeOne.setAttribute("max", 100);
-  rangeOne.setAttribute("value", 0);
-  divRangeOne.appendChild(rangeOne);
-  divRangeOne.setAttribute("class", "rangeDiv");
-  section.appendChild(divRangeOne);
-  // minimum price range label
-  const divLabelOne = document.createElement("label");
-  divLabelOne.setAttribute("for", "rangeOne");
-  divLabelOne.setAttribute("id", "rangeLabelOne");
-  divLabelOne.innerText = rangeOne.value;
-  divRangeOne.appendChild(divLabelOne);
-  // maximum price range slider
-  const divRangeTwo = document.createElement("div");
-  const rangeTwo = document.createElement("input");
-  rangeTwo.setAttribute("type", "range");
-  rangeTwo.setAttribute("name", "rangeTwo");
-  rangeTwo.setAttribute("id", "rangeTwo");
-  rangeTwo.setAttribute("min", 0);
-  rangeTwo.setAttribute("max", 100);
-  rangeTwo.setAttribute("value", 100);
-  divRangeTwo.appendChild(rangeTwo);
-  divRangeTwo.setAttribute("class", "rangeDiv");
-  section.appendChild(divRangeTwo);
-  // maximum price range label
-  const divLabelTwo = document.createElement("label");
-  divLabelTwo.setAttribute("for", "rangeTwo");
-  divLabelTwo.setAttribute("id", "rangeLabelTwo");
-  divLabelTwo.innerText = rangeTwo.value;
-  divRangeTwo.appendChild(divLabelTwo);
-};
-// execute function: createRanges
-createRanges();
-// function: addRangeEventListener
-const addRangeEventListener = () => {
-  const myRanges = document.querySelectorAll("input[type='range']");
-  const myLabels = document.querySelectorAll("label");
-  let myRangeId = "";
-  let myLabelFor = "";
-  for (let range = 0; range < myRanges.length; range++) {
-    for (let lbl = 0; lbl < myLabels.length; lbl++) {
-      myRangeId = myRanges[range].getAttribute("id");
-      myLabelFor = myLabels[lbl].getAttribute("for");
-      if (myRangeId === myLabelFor) {
-        myRanges[range].addEventListener("input", (ev) => {
-          myLabels[lbl].innerText = ev.target.value;
-          getPrice(rangeValuesCheck(rangeOne.value, rangeTwo.value));
-          log(multiFilter(shapesArray, toFilterObjectData));
-        });
-      }
-    }
-  }
-};
-// execute function: addRangeEventListener
-addRangeEventListener();
-//=====================================================================
-// function: filterCheckboxObjects
-const filterCheckboxObjects = (objArray) => {
-  const colorsArray = [];
-  const shapesArray = [];
-  objArray.forEach((obj) => {
-    if (Object.keys(obj) == "color") {
-      colorsArray.push(obj.color);
-    } else {
-      shapesArray.push(obj.shape);
-    }
-  });
-  toFilterObjectData["color"] = colorsArray;
-  toFilterObjectData["shape"] = shapesArray;
-};
-// function: deleteFromArray
-const deleteFromArray = (arrayName, itemValue) => {
-  const index = arrayName.indexOf(itemValue);
-  if (index > -1) {
-    arrayName.splice(index, 1);
-  }
-};
-// function: createCheckboxes
-const createCheckboxes = (namesArray) => {
-  const checkboxControls = document.querySelector("#checkboxControls");
-  //
-  const checkboxesArray = new Array();
-  for (let item = 0; item < namesArray.length; item++) {
-    const divCheckbox = document.createElement("div");
-    divCheckbox.setAttribute("class", "divCheckbox");
-    const checkboxInput = document.createElement("input");
-    checkboxInput.setAttribute("type", "checkbox");
-    checkboxInput.setAttribute("id", Object.values(namesArray[item]));
-    checkboxInput.setAttribute("name", Object.values(namesArray[item]));
-    checkboxInput.setAttribute("value", Object.values(namesArray[item]));
-    checkboxInput.addEventListener("input", (_) => {
-      checkboxInput.checked
-        ? checkboxesArray.push(namesArray[item])
-        : deleteFromArray(checkboxesArray, namesArray[item]);
-      filterCheckboxObjects(checkboxesArray);
-      log(multiFilter(shapesArray, toFilterObjectData));
-    });
-    //
-    const checkboxLabel = document.createElement("label");
-    checkboxLabel.setAttribute("for", Object.values(namesArray[item]));
-    checkboxLabel.innerText = Object.values(namesArray[item]);
-    divCheckbox.appendChild(checkboxInput);
-    divCheckbox.appendChild(checkboxLabel);
-    checkboxControls.appendChild(divCheckbox);
-  }
-};
-// execute function: createCheckboxes
-createCheckboxes([
-  { color: "purple" },
-  { color: "red" },
-  { color: "blue" },
-  { shape: "square" },
-  { shape: "circle" }
-]);
-//=====================================================================
-// === kladblok ===
+//
+// totals
+totals.fixedIncomeTotal = calculateTotal(fixedIncome);
+totals.fixedCostTotal = calculateTotal(fixedCost);
+totals.variableIncomeTotal = calculateTotal(variableIncome);
+totals.variableCostTotal = calculateTotal(variableCost);
+// balances
+totals.fixedBalance = calculateDifference(
+  totals.fixedIncomeTotal,
+  totals.fixedCostTotal
+);
+totals.variableBalance = calculateDifference(
+  totals.variableIncomeTotal,
+  totals.variableCostTotal
+);
+totals.balance = calculateBalance(totals.variableBalance, totals.fixedBalance);
+//display results
+log(totals);

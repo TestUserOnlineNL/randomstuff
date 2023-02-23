@@ -168,20 +168,6 @@ const compareAttributes = () => {
 };
 compareAttributes();
 //
-const tempData = {
-  shape: [],
-  color: []
-};
-
-const pushObjectValue = (someObject, someArray) => {
-  const k = Object.keys(someObject);
-  const v = Object.values(someObject);
-  someArray[k].push(v);
-  return;
-};
-pushObjectValue({ color: "red" }, tempData);
-log(tempData);
-//
 // object destructuring
 const minmax = { min_price: 10, max_price: 20 };
 const { min_price, max_price } = minmax;
@@ -207,3 +193,66 @@ const rangePriceFilter = (minmax) => {
   return newArray;
 };
 //
+// function: multiFilter
+const multiFilter = (arr, filters) => {
+  let filterKeys = Object.keys(filters);
+  return arr.filter((eachObj) => {
+    return filterKeys.every((eachKey) => {
+      if (!filters[eachKey].length) {
+        return true; // passing an empty filter means that filter is ignored.
+      }
+      return filters[eachKey].includes(eachObj[eachKey]);
+    });
+  });
+};
+
+//
+// function: deleteFromArray
+const deleteFromArray = (arrayName, itemValue) => {
+  const index = arrayName.indexOf(itemValue);
+  if (index > -1) {
+    arrayName.splice(index, 1);
+  }
+};
+//
+// function: toAddOrNot
+const toAddOrNot = (objName, objKey, val) => {
+  if (!objName[objKey].includes(val)) {
+    objName[objKey].push(val);
+  }
+};
+// function: toRemoveOrNot
+const toRemoveOrNot = (objName, objKey, val) => {
+  const index = objName[objKey].indexOf(val);
+  if (index > -1) {
+    objName[objKey].splice(index, 1);
+  }
+};
+// examples
+const test = {
+  type: ["doos", "zak", "container"]
+};
+//
+toAddOrNot(test, "type", "kist");
+toAddOrNot(test, "type", "doos");
+log(test);
+//
+toRemoveOrNot(test, "type", "zak");
+log(test);
+//
+//===
+const newdata = {
+  bakker: 10,
+  slager: 20,
+  melkboer: 30,
+  groenteboer: 40,
+  telOp() {
+    return Object.values(JSON.parse(JSON.stringify(this))).reduce(
+      (acc, getal) => acc + getal,
+      0
+    );
+  }
+};
+const totaal = newdata.telOp();
+console.log(totaal);
+//=== kladlok ===

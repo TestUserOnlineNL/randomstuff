@@ -8,11 +8,20 @@
 </head>
 <body>
 <!-- partial:index.partial.html -->
-<body>
-  <main class="main">
-    <header>
-      <h1>Budget project</h1>
-    </header>
+<!-- Planboard met drag-and-drop -->
+
+<body class="body">
+  <header id="topbar" class="topbar">
+    <div class="title" id="title1"></div>
+    <div class="title" id="title2"></div>
+    <div class="title" id="title3"></div>
+  </header>
+  <main id="planboard" class="planboard">
+    <section id="backlog" class="column">
+      <div class="cardAddButton" id="cardAddButton">&#43;</div>
+    </section>
+    <section id="inprogress" class="column"></section>
+    <section id="feedback" class="column"></section>
   </main>
 </body>
 <!-- partial -->

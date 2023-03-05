@@ -49,3 +49,11 @@ h1 {
   text-align: right;
   padding: 0.2rem;
 }
+.rowTotal {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid red;
+  border-bottom: 4px double red;
+  background-color: lightblue;
+}

@@ -246,7 +246,7 @@ const newdata = {
   slager: 20,
   melkboer: 30,
   groenteboer: 40,
-  telOp() {
+  telOp: function () {
     return Object.values(JSON.parse(JSON.stringify(this))).reduce(
       (acc, getal) => acc + getal,
       0
@@ -255,4 +255,27 @@ const newdata = {
 };
 const totaal = newdata.telOp();
 console.log(totaal);
+//
+// function: generateButtons
+function generateButtons(numButtons) {
+  const buttonsContainer = document.createElement("div");
+  const buttons = [];
+
+  for (let i = 1; i <= numButtons; i++) {
+    const button = document.createElement("button");
+    const buttonText = document.createTextNode(`Button ${i}`);
+    button.appendChild(buttonText);
+    button.value = i;
+    button.addEventListener("click", function () {
+      alert(`Button ${button.value} was clicked!`);
+      return button.value;
+    });
+    buttonsContainer.appendChild(button);
+    buttons.push(button);
+  }
+
+  document.body.appendChild(buttonsContainer);
+  return buttons;
+}
+//
 //=== kladlok ===

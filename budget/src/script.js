@@ -1,32 +1,16 @@
 const log = console.log;
 window.localStorage.clear();
 //
-// function: saveData
-const saveData = (key, store) => {
-  const myStore = window.localStorage;
-  myStore.setItem(key, JSON.stringify(store));
-};
-// function: readData
-const readData = (key) => {
-  const myStore = window.localStorage;
-  const retrieved = myStore.getItem(key);
-  return JSON.parse(retrieved);
-};
-// function: calculateTotal
-const calculateTotal = (object) => {
-  let values = Object.values(object);
-  return values.reduce((total, amount) => total + amount, 0);
-};
-// function: calculateDifference
-const calculateDifference = (totalOne, totalTwo) => {
-  return parseFloat(((totalOne * 100 - totalTwo * 100) / 100).toFixed(2));
-};
-// function: calculateBalance
-const calculateBalance = (totalOne, totalTwo) => {
-  return parseFloat(((totalOne * 100 + totalTwo * 100) / 100).toFixed(2));
+// objects
+const telOpFunc = {
+  telOp: function () {
+    return Object.values(JSON.parse(JSON.stringify(this))).reduce(
+      (acc, getal) => acc + getal,
+      0
+    );
+  }
 };
 //
-// define objects
 const totals = {
   fixedIncomeTotal: 0,
   fixedCostTotal: 0,
@@ -63,6 +47,30 @@ const variableCost = {
   clothes: 75.0,
   shoes: 125.0,
   donations: 10.0
+};
+// function: saveData
+const saveData = (key, store) => {
+  const myStore = window.localStorage;
+  myStore.setItem(key, JSON.stringify(store));
+};
+// function: readData
+const readData = (key) => {
+  const myStore = window.localStorage;
+  const retrieved = myStore.getItem(key);
+  return Object.assign(JSON.parse(retrieved), telOpFunc);
+};
+// function: calculateTotal
+const calculateTotal = (object) => {
+  let values = Object.values(object);
+  return values.reduce((total, amount) => total + amount, 0);
+};
+// function: calculateDifference
+const calculateDifference = (totalOne, totalTwo) => {
+  return parseFloat(((totalOne * 100 - totalTwo * 100) / 100).toFixed(2));
+};
+// function: calculateBalance
+const calculateBalance = (totalOne, totalTwo) => {
+  return parseFloat(((totalOne * 100 + totalTwo * 100) / 100).toFixed(2));
 };
 //
 // totals
@@ -101,28 +109,47 @@ const createTable = (object, name) => {
   //
   let count = 0;
   for (const k in object) {
-    const row = document.createElement("div");
-    count % 2
-      ? row.setAttribute("class", "rowEven")
-      : row.setAttribute("class", "rowOdd");
-    //
-    let field1 = document.createElement("div");
-    field1.setAttribute("class", "nameField");
-    field1.innerText = k;
-    row.appendChild(field1);
-    //
-    let field2 = document.createElement("div");
-    field2.setAttribute("class", "valueField");
-    field2.innerText = object[k].toFixed(2);
-    row.appendChild(field2);
-    //
-    tableSection.appendChild(row);
-    count++;
+    if (k != "telOp") {
+      const row = document.createElement("div");
+      count % 2
+        ? row.setAttribute("class", "rowEven")
+        : row.setAttribute("class", "rowOdd");
+      //
+      let field1 = document.createElement("div");
+      field1.setAttribute("class", "nameField");
+      field1.innerText = k;
+      row.appendChild(field1);
+      //
+      let field2 = document.createElement("div");
+      field2.setAttribute("class", "valueField");
+      field2.innerText = Number.parseFloat(object[k]).toFixed(2);
+      row.appendChild(field2);
+      //
+      tableSection.appendChild(row);
+      count++;
+    }
   }
+  //
+  const rowTotal = document.createElement("div");
+  rowTotal.setAttribute("class", "rowTotal");
+  //
+  const textTotal = document.createElement("div");
+  textTotal.setAttribute("class", "nameField");
+  textTotal.innerText = "total";
+  rowTotal.appendChild(textTotal);
+
+  const numberTotal = document.createElement("div");
+  numberTotal.setAttribute("class", "valueField");
+  numberTotal.innerText = Number.parseFloat(object.telOp()).toFixed(2);
+  rowTotal.appendChild(numberTotal);
+  //
+  tableSection.appendChild(rowTotal);
+
   return tableSection;
 };
 //
 const main = document.querySelector(".main");
+//
 main.appendChild(createTable(readData("fixedIncome"), "fixed income"));
 //
 main.appendChild(createTable(readData("fixedCost"), "fixed Cost"));

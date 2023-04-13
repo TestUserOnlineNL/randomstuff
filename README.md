@@ -1,3 +1,3 @@
 # randomstuff
 
-randomstuff written in html, css and javascript
+projects build with html, css and javascript

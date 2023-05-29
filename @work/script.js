@@ -21,7 +21,7 @@ function dragStart(e) {
 function dragEnd(e) {
     setTimeout(() => {
         draggableItem.classList.remove("dragging");
-        list.style.border = "1px solid black";
+        this.style.border = "1px solid black";
         draggableItem = null;
     }, 0);
 }

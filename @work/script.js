@@ -1,85 +1,66 @@
-const log = console.log;
-console.clear();
 /*
-  Planboard met drag-and-drop
+  Sortable Lists
 */
-// data storage
-const backlogData = [];
-const inprogressData = [];
-const feedbackData = [];
-//
-// function: setTitles
-const titles = document.querySelectorAll("div[id^='title']");
-const setTitles = (text) => {
-  const titles = document.querySelectorAll("div[id^='title']");
-  titles.forEach((item, index) => (item.innerText = text[index]));
-};
-//
-// code block Drag & Drop
-// ---source---
-const source = document.querySelector("#backlog");
-source.addEventListener("dragstart", (ev) => {
-  console.log("dragStart");
-  ev.dataTransfer.clearData();
-  ev.dataTransfer.setData("text/plain", ev.target.id);
+// items
+const items = document.querySelectorAll(".item");
+let draggableItem = null;
+
+items.forEach(item => {
+    item.addEventListener("dragstart", dragStart);
+    item.addEventListener("dragend", dragEnd);
 });
-// ---target inprogress---
-const inprogress = document.querySelector("#inprogress");
-inprogress.addEventListener("dragover", (ev) => {
-  console.log("dragOver");
-  ev.preventDefault();
+
+function dragStart(e) {
+    draggableItem = this;
+    setTimeout(() => {
+        draggableItem.classList.add("dragging");
+        list.style.border = "1px solid red";
+    }, 0);
+}
+
+function dragEnd(e) {
+    setTimeout(() => {
+        draggableItem.classList.remove("dragging");
+        list.style.border = "1px solid black";
+        draggableItem = null;
+    }, 0);
+}
+
+// list
+const lists = document.querySelectorAll(".list");
+
+lists.forEach((list) => {
+
+    list.addEventListener("dragleave", dragLeave);
+    list.addEventListener("drop", dragDrop);
+    list.addEventListener("dragenter", dragEnter);
+    list.addEventListener("dragover", dragOver);
+
+    function dragOver(e) {
+        const draggingItem = document.querySelector(".dragging");
+
+        // Getting all items except currently dragging and making an array of them
+        let siblings = [...list.querySelectorAll(".item:not(.dragging)")];
+
+        // Finding the sibling after which the dragging item should be placed
+        let nextSibling = siblings.find(sibling => {
+            return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+        });
+
+        // Inserting the dragging item before the found sibling
+        list.insertBefore(draggingItem, nextSibling);
+    }
+
+    function dragLeave() {
+        list.style.border = "1px solid black";
+    }
+
+    function dragDrop() {
+        this.style.border = "1px solid black";
+        this.appendChild(draggableItem);
+    }
+
+    function dragEnter(e) {
+        this.style.border = "1px solid red";
+    }
 });
-//
-inprogress.addEventListener("drop", (ev) => {
-  console.log("Drop");
-  ev.preventDefault();
-  const data = ev.dataTransfer.getData("text/plain");
-  const source = document.getElementById(data);
-  ev.target.appendChild(source);
-});
-//
-// ---target feedback---
-const feedback = document.querySelector("#feedback");
-feedback.addEventListener("dragover", (ev) => {
-  console.log("dragOver");
-  ev.preventDefault();
-});
-//
-feedback.addEventListener("drop", (ev) => {
-  console.log("Drop");
-  ev.preventDefault();
-  const data = ev.dataTransfer.getData("text/plain");
-  const source = document.getElementById(data);
-  ev.target.appendChild(source);
-});
-//
-// function: createCard
-const createCard = () => {
-  const card = document.createElement("div");
-  card.setAttribute("class", "card");
-  card.setAttribute("id", "card");
-  card.setAttribute("draggable", "true");
-  return card;
-};
-//
-// function: addCard
-const addCardButton = () => {
-  const cardAdd = document.querySelector("#cardAddButton");
-  const backlog = document.querySelector("#backlog");
-  cardAdd.addEventListener("click", () => {
-    backlogData.push(createCard());
-    backlog.appendChild(createCard());
-  });
-};
-//
-// function: immediate
-(() => {
-  setTitles(["Backlog", "In progress", "Feedback"]);
-  addCardButton();
-})();
-//=== kladblok ===
-/*
-  https://www.javascripttutorial.net/web-apis/javascript-drag-and-drop/
-  https://www.w3schools.com/html/html5_draganddrop.asp
-  https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setData
-*/

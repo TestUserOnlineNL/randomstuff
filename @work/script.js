@@ -30,14 +30,20 @@ function dragEnd(e) {
 const lists = document.querySelectorAll(".list");
 
 lists.forEach((list) => {
-
     list.addEventListener("dragleave", dragLeave);
     list.addEventListener("drop", dragDrop);
     list.addEventListener("dragenter", dragEnter);
     list.addEventListener("dragover", dragOver);
 
+    function dragDrop(e) {
+        e.preventDefault();
+        this.style.border = "1px solid black";
+        this.appendChild(draggableItem);
+    }
+
     function dragOver(e) {
-        const draggingItem = document.querySelector(".dragging");
+
+        draggableItem = document.querySelector(".dragging");
 
         // Getting all items except currently dragging and making an array of them
         let siblings = [...list.querySelectorAll(".item:not(.dragging)")];
@@ -48,19 +54,14 @@ lists.forEach((list) => {
         });
 
         // Inserting the dragging item before the found sibling
-        list.insertBefore(draggingItem, nextSibling);
-    }
-
-    function dragLeave() {
-        list.style.border = "1px solid black";
-    }
-
-    function dragDrop() {
-        this.style.border = "1px solid black";
-        this.appendChild(draggableItem);
-    }
-
-    function dragEnter(e) {
-        this.style.border = "1px solid red";
+        list.insertBefore(draggableItem, nextSibling);
     }
 });
+
+function dragEnter(e) {
+    this.style.border = "1px solid red";
+}
+
+function dragLeave() {
+    this.style.border = "1px solid black";
+}

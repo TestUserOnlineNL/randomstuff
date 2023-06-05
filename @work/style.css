@@ -15,6 +15,7 @@ body {
   background-color: #ccc;
 }
 
+/* lists */
 .container {
   display: flex;
   justify-content: space-evenly;
@@ -36,7 +37,7 @@ body {
   margin: 0.5rem 0rem;
   height: 6rem;
   background-color: aquamarine;
-  border: none;
+  border: 1px;
   outline: none;
   border-radius: 1rem;
   padding: 1rem;
@@ -46,8 +47,62 @@ body {
 .item.dragging {
   display: none;
 }
-.addBtn {
+
+.addNewItemBtn {
   display: grid;
   place-items: center;
   font-size: 2rem;
+}
+
+/* dialog */
+.dialog {
+  margin: auto;
+  width: 18rem;
+  border: 1px solid black;
+  border-radius: 1rem;
+  background-color: yellow;
+  padding: 2rem 1rem 2rem 1rem;
+  overflow: hidden;
+}
+
+.dialog::backdrop {
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.dialog .newItem {
+  width: 16rem;
+  margin: 0.5rem 0rem;
+  height: 6rem;
+  background-color: aquamarine;
+  border: none;
+  outline: none;
+  border-radius: 1rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button {
+  width: 5rem;
+  height: 2rem;
+  text-decoration: none;
+  background-color: aquamarine;
+  color: grey;
+  font-size: 1rem;
+  border: 1px solid aquamarine;
+  border-radius: 1rem;
+  box-shadow: 5px 6px 6px grey;
+  cursor: pointer;
+  outline: none;
+  transition: 0.2s all;
+}
+
+.button:active {
+  box-shadow: inset 1.1px 1.1px 10px grey;
+  transform: scale(1);
 }

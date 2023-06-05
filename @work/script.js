@@ -1,4 +1,5 @@
 console.clear();
+//
 /*
   Sortable Lists
 */
@@ -58,6 +59,40 @@ lists.forEach((list) => {
     list.style.border = "2px solid red";
   }
 });
+// new item dialog
+const addNewItem = document.querySelector(".addNewItemBtn");
+addNewItem.addEventListener("click", () => {
+  const showNewItemDialog = document.querySelector(".dialog");
+  showNewItemDialog.showModal();
+
+  const itemContent = document.getElementById("newItem");
+
+  const saveButton = document.querySelector("#save");
+  saveButton.addEventListener("click", () => {
+    if (itemContent.innerText.trim().length > 0) {
+      const listZero = document.querySelectorAll("ul")[0];
+      const result = createNewItem(itemContent.innerText);
+      listZero.appendChild(result);
+    }
+    showNewItemDialog.close();
+    itemContent.innerText = null;
+  });
+
+  const cancelButton = document.querySelector("#cancel");
+  cancelButton.addEventListener("click", () => {
+    showNewItemDialog.close();
+    itemContent.innerText = null;
+  });
+});
+function createNewItem(itemText) {
+  const newEl = document.createElement("li");
+  newEl.setAttribute("class", "item");
+  newEl.setAttribute("draggable", "true");
+  newEl.innerText = itemText.trim();
+  newEl.addEventListener("dragstart", dragStart);
+  newEl.addEventListener("dragend", dragEnd);
+  return newEl;
+}
 //
 //=== kladblok ===
 //

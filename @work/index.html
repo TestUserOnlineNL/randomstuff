@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - @work</title>
+  <title>Drag, Drop & Sort</title>
   <link rel="stylesheet" href="./style.css">
-
+  <script src="./script.js" defer></script>
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<body>
+  <!-- -->
+  <dialog class="dialog">
+    <div class="newItem" contenteditable="true" id="newItem"></div>
+    <div class="buttons">
+      <button type="button" class="button" id="cancel">Cancel</button>
+      <button type="button" class="button" id="save">Save</button>
+    </div>
+  </dialog>
   <!-- -->
   <div class="container">
     <ul class="list">
-      <li class="item addBtn">&#43;</li>
+      <li class="item addNewItemBtn">&#43;</li>
       <li class="item" draggable="true">item 1</li>
       <li class="item" draggable="true">item 2</li>
       <li class="item" draggable="true">item 3</li>
@@ -38,14 +46,6 @@
     </ul>
   </div>
   <!-- -->
-  <dialog id="itemDialog" class="list">
-    <li class="item" contenteditable="true"></li>
-    <button type="button" class="button" id="cancel">Cancel</button>
-    <button type="submit" class="button" id="save">Save</button>
-  </dialog>
 </body>
-<!-- partial -->
-  <script  src="./script.js"></script>
 
-</body>
 </html>

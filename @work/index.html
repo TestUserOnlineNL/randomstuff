@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Drag, Drop & Sort</title>
+  <title>CodePen - @work</title>
   <link rel="stylesheet" href="./style.css">
-  <script src="./script.js" defer></script>
-</head>
 
+</head>
 <body>
   <!-- -->
   <dialog class="dialog">
-    <div class="newItem" contenteditable="true" id="newItem"></div>
+    <div class="newItem" id="newItem">
+      <article class="articleText" contenteditable="true"></article>
+    </div>
     <div class="buttons">
       <button type="button" class="button" id="cancel">Cancel</button>
       <button type="button" class="button" id="save">Save</button>
@@ -20,32 +20,59 @@
   <!-- -->
   <div class="container">
     <ul class="list">
+      <li class="listTitle">backlog</li>
       <li class="item addNewItemBtn">&#43;</li>
-      <li class="item" draggable="true">item 1</li>
-      <li class="item" draggable="true">item 2</li>
-      <li class="item" draggable="true">item 3</li>
-      <li class="item" draggable="true">item 4</li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 1</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 2</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 3</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 4</article>
+      </li>
     </ul>
   </div>
   <!-- -->
   <div class="container">
     <ul class="list">
-      <li class="item" draggable="true">item 5</li>
-      <li class="item" draggable="true">item 6</li>
-      <li class="item" draggable="true">item 7</li>
-      <li class="item" draggable="true">item 8</li>
+      <li class="listTitle">in progress</li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 5</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 6</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 7</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 8</article>
+      </li>
     </ul>
   </div>
   <!-- -->
   <div class="container">
     <ul class="list">
-      <li class="item" draggable="true">item 9</li>
-      <li class="item" draggable="true">item 10</li>
-      <li class="item" draggable="true">item 11</li>
-      <li class="item" draggable="true">item 12</li>
+      <li class="listTitle">finished</li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 9</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 10</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 11</article>
+      </li>
+      <li class="item" draggable="true">
+        <article class="articleText">item 12</article>
+      </li>
     </ul>
   </div>
   <!-- -->
+  <script  src="./script.js"></script>
 </body>
-
 </html>

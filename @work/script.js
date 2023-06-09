@@ -123,13 +123,3 @@ function createNewItem(itemText) {
 //
 // https://stackoverflow.com/questions/44415228/list-sorting-with-html5-dragndrop-drop-above-or-below-depending-on-mouse
 //
-getArticles = [...document.querySelectorAll(".articleText")];
-getArticles.forEach((article) => {
-  if (!article.hasAttribute("contenteditable")) {
-    console.log(article);
-  }
-});
-getLists = [...document.querySelectorAll(".list")];
-getLists.forEach((list) => {
-  console.log(getLists.indexOf(list));
-});

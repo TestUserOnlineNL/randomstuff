@@ -46,7 +46,10 @@ body {
   position: relative;
 }
 
-.item.dragging {
+.list .item:not(.newItem, .addNewItemBtn) {
+  cursor: move;
+}
+.list .item.dragging {
   display: none;
 }
 
@@ -69,7 +72,7 @@ body {
   border: none;
   outline: none;
   padding: 0rem 0.5rem;
-  cursor: pointer;
+  /*   cursor: move; */
   overflow-wrap: anywhere;
   overflow-y: scroll;
 
@@ -109,7 +112,6 @@ body {
   outline: none;
   border-radius: 1rem;
   padding: 0.5rem 1rem;
-  cursor: pointer;
 }
 
 .buttons {
@@ -153,4 +155,5 @@ body {
   position: absolute;
   top: 0.1rem;
   right: 0.1rem;
+  cursor: pointer;
 }

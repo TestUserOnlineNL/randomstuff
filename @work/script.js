@@ -28,6 +28,7 @@ items.forEach((item) => {
   }
   item.addEventListener("dragstart", dragStart);
   item.addEventListener("dragend", dragEnd);
+  item.addEventListener("click", changeItem);
 });
 
 function dragStart() {
@@ -44,6 +45,11 @@ function dragEnd() {
   }, 0);
 }
 
+function changeItem(e) {
+  const el = e.target;
+  console.log(el.setAttribute("contenteditable", "true"));
+}
+
 // list
 const lists = document.querySelectorAll(".list");
 
@@ -51,7 +57,7 @@ lists.forEach((list) => {
   list.addEventListener("dragenter", dragEnter);
   list.addEventListener("dragleave", dragLeave);
   list.addEventListener("dragover", dragOver);
-  list.addEventListener("drop", dragDrop);
+  list.addEventListener("drop", dragDrop, false);
 
   function dragOver(e) {
     e.preventDefault();
@@ -123,3 +129,22 @@ function createNewItem(itemText) {
 //
 // https://stackoverflow.com/questions/44415228/list-sorting-with-html5-dragndrop-drop-above-or-below-depending-on-mouse
 //
+function pushData() {
+  const all_lists = document.querySelectorAll(".list");
+  let result = [];
+  all_lists.forEach((li) => {
+    let data = [];
+    const it = li.getElementsByClassName("articleText");
+    for (let i = 0; i < it.length; i++) {
+      data.push(it[i].innerText.trim());
+    }
+    result.push(data);
+  });
+  return result;
+}
+
+function pullData() {
+  const retr = pushData();
+  retr.forEach(rl => { console.log(`lijst ${retr.indexOf(rl)}`, rl) })
+}
+pullData();

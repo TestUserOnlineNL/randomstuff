@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - drag, drop, sort and store</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+  <!-- -->
+  <dialog class="dialog">
+    <div class="newItem" id="newItem">
+      <article class="articleText" contenteditable="true"></article>
+    </div>
+    <div class="buttons">
+      <button type="button" class="button" id="cancel">Cancel</button>
+      <button type="button" class="button" id="save">Save</button>
+    </div>
+  </dialog>
+  <!-- -->
+  <div class="container">
+    <ul class="list" id="one">
+      <li class="listTitle">backlog</li>
+      <li class="item addNewItemBtn">&#43;</li>
+    </ul>
+  </div>
+  <!-- -->
+  <div class="container">
+    <ul class="list" id="two">
+      <li class="listTitle">in progress</li>
+    </ul>
+  </div>
+  <!-- -->
+  <div class="container">
+    <ul class="list" id="three">
+      <li class="listTitle">finished</li>
+    </ul>
+  </div>
+  <!-- -->
+  <script src="./script.js"></script>
+
+</body>
+
+</html>

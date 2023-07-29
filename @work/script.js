@@ -1,5 +1,8 @@
 console.clear();
-/* products array */
+//
+/*
+  array: beyblades
+*/
 const beyblades = [
   {
     id: 0,
@@ -65,20 +68,17 @@ const beyblades = [
     stock: 3
   }
 ];
-/* in shopping cart array */
-const inShoppingCart = [
-  {
-    id: 0,
-    name: "Beyblade Quad Drive",
-    description: "Start Pack: Cyclone Roktavor",
-    price: 17.99,
-    stock: 8
-  }
-];
-/* productsList function */
+/*
+  array: in shopping cart
+*/
+const inShoppingCart = [];
+/* 
+  function: products list
+  items   : array with product objects
+*/
 function productsList(items) {
-  const main = document.querySelector("main");
-  /* loop through product items and create product card for each single item */
+  const productCards = [];
+  /* create product card for each single item in items */
   for (let item = 0; item < items.length; item++) {
     const info = items[item];
     // product card
@@ -103,50 +103,164 @@ function productsList(items) {
     const orderNowButton = document.createElement("button");
     orderNowButton.setAttribute("class", "order_now_button");
     orderNowButton.innerText = "Order now!";
+    orderProduct(info, orderNowButton);
     // putting it all together
     productCard.appendChild(productImage);
     productInformation.appendChild(productInfoTitle);
     productInformation.appendChild(productInfoText);
     productInformation.appendChild(orderNowButton);
     productCard.appendChild(productInformation);
-    main.appendChild(productCard);
+    productCards.push(productCard);
   }
+  return productCards;
 }
-productsList(beyblades);
-//
-/*
-      === KLADBLOK === 
-*/
 /* shopping cart list function */
-function shoppingCartList() {
-  const main = document.querySelector("main");
-  /* loop through product items and create product card for each single item */
-  for (let item = 0; item < inShoppingCart.length; item++) {
-    const info = inShoppingCart[item];
+function shoppingCartList(itemsSelected) {
+  const productCardsSelected = [];
+  // shopping cart title
+  const shoppingCart = document.createElement("div");
+  shoppingCart.setAttribute("class", "shoppingCart");
+  const shoppingCartTitle = document.createElement("div");
+  shoppingCartTitle.setAttribute("class", "shoppingCartTitle");
+  shoppingCartTitle.innerText = "Shopping Cart";
+  shoppingCart.appendChild(shoppingCartTitle);
+  productCardsSelected.push(shoppingCart);
+  //
+  /* create product card for each single item in itemsSelected */
+  for (let item = 0; item < itemsSelected.length; item++) {
+    const info = itemsSelected[item];
     // product card
     const productCard = document.createElement("article");
     productCard.setAttribute("class", "productSelected");
+    productCard.style.gridRow = `${item + 2}`;
+    // button minus -
+    const minusButton = document.createElement("div");
+    minusButton.setAttribute("class", "minusButton");
+    minusButton.innerText = `\u2212`;
+    changeQuantity(item, main);
+    // button remove x
+    const removeButton = document.createElement("div");
+    removeButton.setAttribute("class", "removeButton");
+    removeButton.innerText = `\u00D7`;
+    removeButton.addEventListener("click", () => {
+      if (removeButton.parentNode) {
+        removeButton.parentNode.remove(removeButton);
+      }
+    });
     // product image
     const productImage = document.createElement("div");
-    productImage.setAttribute("class", "product_image");
+    productImage.setAttribute("class", "productSelected_image");
     productImage.innerText = "product\nimage";
     // product information
     const productInformation = document.createElement("div");
-    productInformation.setAttribute("class", "product_information");
+    productInformation.setAttribute("class", "productSelected_information");
     // product info title
     const productInfoTitle = document.createElement("h2");
-    productInfoTitle.innerText = info.name;
-    productInfoTitle.setAttribute("class", "product_info_title");
+    productInfoTitle.innerText = "\n\n" + info.name;
+    productInfoTitle.setAttribute("class", "productSelected_info_title");
     // product info text
     const productInfoText = document.createElement("div");
-    productInfoText.setAttribute("class", "product_info_text");
-    productInfoText.innerText = `${info.description}\nPrice: \u20AC ${info.price}\nIn stock: ${info.stock}`;
+    productInfoText.setAttribute("class", "productSelected_info_text");
+    productInfoText.innerText = `${info.description}\nPrice: \u20AC ${info.price}\nQuantity: ${info.quantity}`;
     // putting it all together
+    productCard.appendChild(minusButton);
+    productCard.appendChild(removeButton);
     productCard.appendChild(productImage);
     productInformation.appendChild(productInfoTitle);
     productInformation.appendChild(productInfoText);
     productCard.appendChild(productInformation);
-    main.appendChild(productCard);
+    productCardsSelected.push(productCard);
   }
+  return productCardsSelected;
 }
-shoppingCartList(inShoppingCart);
+// load data beyblades
+const main = document.querySelector("main");
+productsList(beyblades).forEach((i) => {
+  main.appendChild(i);
+});
+// search in data
+const typedText = document.querySelector("#search");
+typedText.addEventListener("keyup", (e) => {
+  const artikelen = beyblades;
+  const filtered = artikelen.filter((artikel) => {
+    return (
+      artikel.name.toUpperCase().includes(e.target.value.toUpperCase()) ||
+      artikel.description.toUpperCase().includes(e.target.value.toUpperCase())
+    );
+  });
+  main.innerText = "";
+  shoppingCartList(inShoppingCart).forEach((i) => {
+    main.appendChild(i);
+  });
+  productsList(filtered).forEach((i) => {
+    main.appendChild(i);
+  });
+});
+//
+/*
+      === KLADBLOK === 
+*/
+/*
+  function  : search by id
+  dataObject: object array name
+  searchId  : id to look for in object array
+*/
+function searchById(dataObject, searchId) {
+  for (let i = 0; i < dataObject.length; i++) {
+    if (dataObject[i].id === searchId) {
+      return dataObject[i];
+    }
+  }
+  return 0;
+}
+/*
+  function   : orderProduct
+  data       : object data of single product
+  htmlElement: html element to add eventlistener
+*/
+function orderProduct(data, htmlElement) {
+  htmlElement.addEventListener("click", () => {
+    const { id, name, description, price } = data;
+    console.log(data.stock);
+    const newObject = { id, name, description, price, quantity: 1 };
+    const check = searchById(inShoppingCart, id);
+    if (check === 0 && data.stock > 0) {
+      inShoppingCart.push(newObject);
+    }
+    if (check !== 0 && data.stock > 0) {
+      check.quantity++;
+    }
+    if (data.stock > 0) {
+      data.stock--;
+    }
+    shoppingCartList(inShoppingCart).forEach((i) => {
+      main.appendChild(i);
+    });
+    productsList(beyblades).forEach((i) => {
+      main.appendChild(i);
+    });
+  });
+}
+/*
+  function   : change quantity of ordered product
+  data       : data object to change
+  htmlElement: html element to add eventlistener
+*/
+function changeQuantity(data, htmlElement) {
+  htmlElement.addEventListener("click", () => {
+    const check = searchById(inShoppingCart, data.id);
+    if (data.quantity > 0) {
+      data.quantity--;
+      check.stock++;
+    }
+    if (data.quantity < 1) {
+      orders.splice(orders.indexOf(data), 1);
+    }
+    shoppingCartList(inShoppingCart).forEach((i) => {
+      main.appendChild(i);
+    });
+    productsList(beyblades).forEach((i) => {
+      main.appendChild(i);
+    });
+  });
+}

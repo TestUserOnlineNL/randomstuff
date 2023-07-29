@@ -1,44 +1,44 @@
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --bg_color_left: blue;
-    --fg_color_left: lightblue;
-    --bg_color_right: yellow;
-    --fg_color_right: orange;
-    --body: lightgrey;
+  --bg_color_left: blue;
+  --fg_color_left: lightblue;
+  --bg_color_right: yellow;
+  --fg_color_right: orange;
+  --body: lightgrey;
 }
 
 body {
-    background-color: var(--body);
+  background-color: var(--body);
 }
 
 .container {
-    display: grid;
-    grid-template-columns: 32rem 28rem;
-    grid-auto-rows: 1fr;
-    width: 60rem;
-    margin: 0 auto;
+  display: grid;
+  grid-template-columns: 32rem 28rem;
+  grid-auto-rows: 1fr;
+  width: 60rem;
+  margin: 0 auto;
 }
 
 .leftCard {
-    background-color: var(--fg_color_left);
-    color: var(--bg_color_left);
-    border: 1px solid;
-    height: 16rem;
-    width: 32rem;
+  background-color: var(--fg_color_left);
+  color: var(--bg_color_left);
+  border: 1px solid;
+  height: 16rem;
+  width: 32rem;
 }
 
 .rightCard {
-    background-color: var(--fg_color_right);
-    color: var(--bg_color_right);
-    border: 1px solid;
-    height: 8rem;
-    width: 24rem;
-    place-self: end;
+  background-color: var(--fg_color_right);
+  color: var(--bg_color_right);
+  border: 1px solid;
+  height: 8rem;
+  width: 24rem;
+  place-self: end;
 }

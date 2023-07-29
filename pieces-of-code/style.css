@@ -1,0 +1,53 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: teal;
+  color: pink;
+}
+button {
+  height: 3rem;
+  width: 6rem;
+  background-color: pink;
+  color: darkblue;
+  font-size: 1rem;
+  margin: 1rem 0.5rem;
+}
+.wrapper {
+  box-sizing: border-box;
+  height: 8rem;
+  width: 8rem;
+  margin: 1rem 0.5rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  background-color: pink;
+  color: darkblue;
+}
+.scrolltext {
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  overflow-y: auto;
+
+  scrollbar-color: grey pink;
+  scrollbar-width: 2px;
+}
+.scrolltext::-webkit-scrollbar {
+  width: 2px;
+}
+.scrolltext::-webkit-scrollbar-thumb {
+  /* Foreground */
+  background: gray;
+}
+.scrolltext::-webkit-scrollbar-track {
+  /* Background */
+  background: pink;
+}

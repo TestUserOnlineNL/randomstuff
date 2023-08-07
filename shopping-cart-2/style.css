@@ -14,7 +14,7 @@ html {
   font-size: 1rem;
   background-color: lightblue;
 }
-/* header */
+/* header /////////////////////////////////////////////// */
 .filler {
   height: 5rem;
   width: var(--content-width);
@@ -30,7 +30,7 @@ html {
   width: var(--content-width);
   margin: 0 auto;
 }
-/* beyblade logo */
+/* beyblade logo /////////////////////////////////////////////// */
 .logo {
   display: grid;
   place-items: center;
@@ -45,6 +45,7 @@ html {
   transform-origin: center;
   transform: rotate(-17deg);
   position: relative;
+  cursor: zoom-in;
 }
 .logo .tooltip {
   position: absolute;
@@ -63,7 +64,7 @@ html {
 .logo:hover .tooltip {
   visibility: visible;
 }
-/* search box */
+/* search box /////////////////////////////////////////////// */
 .searchBox {
   display: flex;
   justify-content: space-between;
@@ -121,11 +122,8 @@ html {
   width: var(--content-width);
   margin: 0 auto;
 }
+/* product list /////////////////////////////////////////////// */
 #productList {
-  display: flex;
-  flex-direction: column;
-}
-#orderList {
   display: flex;
   flex-direction: column;
 }
@@ -135,7 +133,7 @@ html {
   border-radius: 1rem;
   color: darkblue;
   padding: 0.1rem 0.5rem;
-  cursor: pointer;
+  width: 750px;
 }
 .product_image {
   height: 350px;
@@ -178,4 +176,93 @@ html {
 .order_now_button:active {
   transform: translate(2px, 2px);
   box-shadow: none;
+}
+/* order list /////////////////////////////////////////////// */
+#orderList {
+  display: flex;
+  flex-direction: column;Start
+}
+.shoppingCart {
+  height: calc(352.5 / 2) px;
+  width: 420px;
+  margin: 0.5rem;
+}
+.shoppingCartTitle {
+  width: 100%;
+  border-radius: 1rem;
+  background-color: red;
+  color: blue;
+  padding: 2rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.orderLine {
+  border-radius: 1rem;
+  background-color: tomato;
+  width: 420px;
+  position: relative;
+  margin: 0.2rem;
+  position: relative;
+}
+.minusButton {
+  position: absolute;
+  top: 0.7rem;
+  right: 2rem;
+  background-color: white;
+  color: red;
+  width: var(--button-height);
+  height: var(--button-height);
+  border-radius: 0.3rem;
+  text-align: center;
+  line-height: 100%;
+  cursor: pointer;
+}
+.removeButton {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  background-color: red;
+  color: blue;
+  width: var(--button-height);
+  height: var(--button-height);
+  border-radius: 0.3rem;
+  text-align: center;
+  line-height: 100%;
+  cursor: pointer;
+}
+.orderLine_image {
+  height: 120px;
+  width: 120px;
+  border: 2px solid red;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  padding: 1rem;
+  float: left;
+}
+.orderLine_information {
+  float: right;
+}
+.orderLine_info_title {
+  padding: 0.5rem 1rem 0rem 0rem;
+  color: blue;
+  font-size: 0.9rem;
+}
+.orderLine_info_text {
+  padding: 0.5rem 1rem 0rem 0rem;
+  color: blue;
+  line-height: 170%;
+  font-size: 0.7rem;
+}
+.orderTotal {
+  width: 420px;
+  margin: 0.5rem;
+}
+.orderTotalTitle {
+  width: 100%;
+  border-radius: 1rem;
+  background-color: red;
+  color: blue;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
 }

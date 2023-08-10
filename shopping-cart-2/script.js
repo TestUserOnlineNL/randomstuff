@@ -231,7 +231,6 @@ function showOrderData(dataObject, htmlId) {
     removeButton.addEventListener("click", () => {
       if (removeButton.parentNode) {
         changeStock(order);
-        dataObject.splice(dataObject.indexOf(order), 1);
         removeButton.parentNode.remove(removeButton);
       }
     });
@@ -285,8 +284,6 @@ function refreshLists() {
   function: refresh list (load / refresh data)
 */
 refreshLists();
-
-/* === KLADBLOK === */
 
 // search in data
 const typedText = document.querySelector("#search");

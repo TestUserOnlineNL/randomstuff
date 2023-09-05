@@ -322,5 +322,5 @@ const section_1 = document.querySelector("#section_1");
 section_1.appendChild(generateButtons(5));
 /* ==================================================================== */
 //
-//=== kladlok ===
+//=== kladblok ===
 //

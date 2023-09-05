@@ -1,33 +1,36 @@
 select
-	TITLE MOVIE_TITLE,
-	substring(YEAR,2,4) RELEASE_YEAR
+	rowid watched_order,
+	movie_title movie_title ,
+	substring(release_year, 2, 4) release_year
 from
 	converted_imported_data
 where
-	ROWID = 1
-UNION ALL
+	rowid = 1
+union all
 select
-	TITLE,
-	substring(YEAR,2,4)
+	rowid,
+	movie_title,
+	substring(release_year, 2, 4)
 from
 	converted_imported_data
 where
-	ROWID not in(
+	rowid not in(
 1,
 (
 	select
-		max(ROWID)
+		max(rowid)
 	from
 		converted_imported_data))
-UNION ALL
+union all
 select
-	TITLE,
-	substring(YEAR,2,4)
+	rowid,
+	movie_title,
+	substring(release_year, 2, 4)
 from
 	converted_imported_data
 where
-	ROWID in (
+	rowid in (
 	select
-		max(ROWID)
+		max(rowid)
 	from
 		converted_imported_data);

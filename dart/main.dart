@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 void main() {
-  var str = 'apple';
-  str.runes.forEach((c) {
-    var ch = new String.fromCharCode(c);
-    print(ch);
-  });
+  final users = [
+    {'name': 'John Doe', 'occupation': 'gardener'},
+    {'name': 'Roger Roe', 'occupation': 'driver'},
+    {'name': 'Thomas Brown', 'occupation': 'teacher'}
+  ];
+
+  final res = json.encode(users);
+  print(res);
 }

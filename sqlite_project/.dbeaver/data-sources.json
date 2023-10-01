@@ -1,0 +1,29 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-18a748f94b9-6d37af90f21cbaaf": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "conversion_database",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\Users\\janss\\OneDrive\\Documents\\randomstuff\\sqlite_project\\Database\\conversion_database",
+				"url": "jdbc:sqlite:C:\\Users\\janss\\OneDrive\\Documents\\randomstuff\\sqlite_project\\Database\\conversion_database",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

@@ -1,5 +1,5 @@
 // Function in Kotlin
-fun main(args: Array<String>) {
+fun main() {
 
 	// Print statement
 	println("GeeksforGeeks")

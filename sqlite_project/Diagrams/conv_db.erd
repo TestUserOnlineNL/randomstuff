@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="conv_db">
+	<entities>
+		<data-source id="sqlite_jdbc-18a748f94b9-6d37af90f21cbaaf">
+			<entity id="1" name="converted_imported_data" fq-name="converted_imported_data"/>
+			<entity id="2" name="watched_movies_import" fq-name="watched_movies_import"/>
+		</data-source>
+	</entities>
+	<relations/>
+</diagram>

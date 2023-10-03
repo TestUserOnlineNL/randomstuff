@@ -8,7 +8,7 @@
             "name": "Dart & Flutter",
             "request": "launch",
             "type": "dart",
-            "cwd": "/home/pi/Documents/GitHub/randomstuff/dart",
+            "cwd": "/home/marc/GitHub/randomstuff/dart",
             "program": "main.dart",
             "console": "terminal"
         }

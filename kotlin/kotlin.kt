@@ -2,5 +2,5 @@
 fun main() {
 
 	// Print statement
-	println("GeeksforGeeks")
+	println("GeeksforGeeks");
 }

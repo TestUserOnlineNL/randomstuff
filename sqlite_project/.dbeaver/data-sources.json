@@ -11,6 +11,27 @@
 				"url": "jdbc:sqlite:C:\\Users\\janss\\OneDrive\\Documents\\randomstuff\\sqlite_project\\Database\\conversion_database",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
+				"auth-model": "native"
+			}
+		},
+		"postgres-jdbc-18e51bd3583-65b261d4aa21f83": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "5432",
+				"database": "postgres",
+				"url": "jdbc:postgresql://192.168.178.4:5432/Claudia",
+				"configurationType": "URL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "false",
+					"@dbeaver-chosen-role@": ""
+				},
 				"auth-model": "native"
 			}
 		}
@@ -23,7 +44,12 @@
 			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
-			"auto-close-transactions": false
+			"smart-commit": false,
+			"smart-commit-recover": false,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
 		}
 	}
 }

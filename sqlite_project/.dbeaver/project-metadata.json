@@ -1,1 +1,1 @@
-{"resources":{"Scripts/create_table_from_imported_data.sql":{"default-datasource":"sqlite_jdbc-18a748f94b9-6d37af90f21cbaaf"}}}
+{"resources":{"Scripts/Script.sql":{"default-datasource":"postgres-jdbc-18e51bd3583-65b261d4aa21f83","default-catalog":"Claudia","default-schema":"projects"},"Scripts/create_table_from_imported_data.sql":{"default-datasource":"sqlite_jdbc-18a748f94b9-6d37af90f21cbaaf"}}}

@@ -1,83 +1,85 @@
-""" STRING examples"""
-#
-a = '''Lorem ipsum dolor sit amet,
-consectetur adipiscing elit,
-sed do eiusmod tempor incididunt
-ut labore et dolore magna aliqua.'''
-print(a);
-#
-print();
-#
-a = "Hello, World!";
-print(a[0]);
-#
-for x in "banana":
-  print(x);
-#
-txt = "The best things in life are free!"
-print("free" in txt)
-#
-txt = "The best things in life are free!"
-if "free" in txt:
-  print("Yes, 'free' is present.")
-#
-txt = "The best things in life are free!"
-if "expensive" not in txt:
-  print("No, 'expensive' is NOT present.")
-#
-b = "Hello, World!"
-print(b[2:5])
-#
-b = "Hello, World!"
-print(b[:5])
-#
-b = "Hello, World!"
-print(b[2:])
-#
-b = "Hello, World!"
-print(b[-5:-2])
-#
-age = 55
-name = "crashtestopa"
-text= "My name is {}, and i am {} years old."
-print(text.format(name, age))
-#
-txt = "My name is Ståle"
-print(txt.encode(encoding="ascii",errors="backslashreplace"))
-""" ARRAY examples"""
-#
-myList = ["brood","halvarine", "beleg","koffie"]
-print(myList)
-#
-myList.append("kaas")
-print(myList)
-myList.pop(2)
-print(myList)
-#
-myList.remove("halvarine")
-myList.sort()
-print(myList)
-#
-print(len(myList))
-#
-thislist = ["apple", "banana", "cherry", "orange", "kiwi", "melon", "mango"]
-print(thislist[2:5])
-#
-thislist = ["apple", "banana", "cherry"]
-if "apple" in thislist:
-  print("Yes, 'apple' is in the fruits list")
-#
-thislist = ["apple", "banana", "cherry"]
-for i in range(len(thislist)):
-  print(thislist[i])
-print()
-#
-thislist = ["apple", "banana", "cherry"]
-[print(x) for x in thislist]
-#
-fruits = ["apple", "banana", "cherry", "kiwi", "mango"]
-newlist = [x for x in fruits if "a" in x]
-print(newlist)
-#
-newList = [x if x != "banana" else "orange" for x in fruits]
-print(newList)
+from pathlib import Path
+
+file_path = Path('import.txt')
+
+if file_path.is_file():
+    print('The file exists!')
+else:
+    print('The file does not exist.')
+
+# Output:
+# 'The file exists!' if the file exists, 'The file does not exist.' otherwise.
+    
+try:
+    with open('import.txt'):
+        print('The file exists!')
+except FileNotFoundError:
+    print('The file does not exist.')
+
+# Output:
+# 'The file exists!' if the file exists, 'The file does not exist.' otherwise.
+    
+#from pathlib import Path
+
+# Create a Path object
+p = Path('.')
+
+# Print the absolute path
+print(p.absolute())
+
+# Output:
+# '/path/to/current/directory'
+
+###########################################################################################
+import os
+
+def create_file(filename):
+	try:
+		with open(filename, 'w') as f:
+			f.write('Hello, world!\n')
+		print("File " + filename + " created successfully.")
+	except IOError:
+		print("Error: could not create file " + filename)
+
+def read_file(filename):
+	try:
+		with open(filename, 'r') as f:
+			contents = f.read()
+			print(contents)
+	except IOError:
+		print("Error: could not read file " + filename)
+
+def append_file(filename, text):
+	try:
+		with open(filename, 'a') as f:
+			f.write(text)
+		print("Text appended to file " + filename + " successfully.")
+	except IOError:
+		print("Error: could not append to file " + filename)
+
+def rename_file(filename, new_filename):
+	try:
+		os.rename(filename, new_filename)
+		print("File " + filename + " renamed to " + new_filename + " successfully.")
+	except IOError:
+		print("Error: could not rename file " + filename)
+
+def delete_file(filename):
+	try:
+		os.remove(filename)
+		print("File " + filename + " deleted successfully.")
+	except IOError:
+		print("Error: could not delete file " + filename)
+
+
+if __name__ == '__main__':
+	filename = "example.txt"
+	new_filename = "new_example.txt"
+
+	create_file(filename)
+	read_file(filename)
+	append_file(filename, "This is some additional text.\n")
+	read_file(filename)
+	rename_file(filename, new_filename)
+	read_file(new_filename)
+	delete_file(new_filename)

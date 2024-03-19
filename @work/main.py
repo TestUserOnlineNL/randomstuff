@@ -1,3 +1,5 @@
+# examples:
+################################################################################################
 from pathlib import Path
 
 file_path = Path('import.txt')
@@ -85,6 +87,8 @@ if __name__ == '__main__':
     delete_file(new_filename)
     
 ################################################################################################
+# my code starts here below
+################################################################################################
 print()
 
 import re
@@ -101,4 +105,3 @@ with open(r"./data-collection/series_data.txt", 'r') as fp:
                 print(ln, line.strip())
         
 print('Total Lines', ln)
-

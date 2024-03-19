@@ -91,7 +91,7 @@ import re
 
 ln = 0
 
-with open(r"../data-collection/series_data.txt", 'r') as fp:
+with open(r"./data-collection/series_data.txt", 'r') as fp:
     for line in fp:
 
             if re.search("^\n", line):

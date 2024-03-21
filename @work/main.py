@@ -14,11 +14,11 @@ if __name__ == '__main__':
 
     with open(r"./data-collection/series_data.txt", 'r') as fp:
         ln = 0
-        for line in fp:
-            result = searchText(line)
-            if result != None:
-                print(result)
-                ln = ln + 1
-                
-            
-    print('\nTotal Lines', ln)
+        with open(r"./@work/filtered_data_file.txt", 'w') as fw:
+            for line in fp:
+                result = searchText(line)
+                if result != None:
+                    ln = ln + 1
+                    fw.writelines(str(ln) + "," + "\"" + result[0] + "\"," + result[1] + "," + result[2] + '\n')
+
+    print('\nTotal Lines ' + str(ln))

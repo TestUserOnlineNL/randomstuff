@@ -7,11 +7,8 @@ def searchText(lineText):
     seriesData = re.search("^(.+)\s(season|deel)\s([0-9]+)\s\-\s([0-9]+)\s.+$", aString)
 
     if seriesData is None:
-        pass
+        return("invalid data detected")
     else:
-        return(seriesData.group(1,2,3))
+        return(seriesData.group(1,3,4))
 
-    
-
-result = searchText(aString)
-print('result ',result)
+print(searchText(aString))

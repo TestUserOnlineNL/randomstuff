@@ -19,6 +19,6 @@ if __name__ == '__main__':
                 result = searchText(line)
                 if result != None:
                     ln = ln + 1
-                    fw.writelines(str(ln) + "," + "\"" + result[0] + "\"," + result[1] + "," + result[2] + '\n')
+                    fw.writelines(str(ln) + "," + result[0] + "," + result[1] + "," + result[2] + '\n')
 
     print('\nTotal Lines ' + str(ln))

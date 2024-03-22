@@ -1,4 +1,4 @@
-1,﻿Super8,2011
+1,Super8,2011
 2,The Age of Adaline,2015
 3,Paul,2011
 4,The Late Bloomer,2016

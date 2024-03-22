@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     with open(r"./data-collection/series_data.txt", 'r') as fp:
         ln = 0
-        with open(r"./@work/filtered_data_file.txt", 'w') as fw:
+        with open(r"./@work/serie_data_cleaned.txt", 'w') as fw:
             for line in fp:
                 result = searchText(line)
                 if result != None:

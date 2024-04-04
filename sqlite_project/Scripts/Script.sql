@@ -1,1 +1,1 @@
-select count(*) as aantal from serie_import si 
+select count(*) as aantal from series_import si

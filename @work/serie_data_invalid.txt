@@ -1,0 +1,9 @@
+---invalid--- The Flash season 6 - 19 ---line: 13
+---invalid--- Shadowhunters season 3b - 12 episodes watched ---line: 261
+---invalid--- How to get away with murder season 5 - 15 ---line: 451
+---invalid--- The Good Cop season 1 -10 episodes watched ---line: 462
+---invalid--- Sex Education 2 - 8 episodes watched ---line: 568
+---invalid--- October Faction 1 - 10 episodes watched ---line: 569
+---invalid--- Black Lightning 3 - 16 episodes watched ---line: 778
+---invalid--- Black Lightning 4 - 13 episodes watched ---line: 779
+---invalid--- 1899 season 1 -8 episodes watched ---line: 852

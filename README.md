@@ -1,3 +1,3 @@
 # randomstuff
 
-projects build with: javascript, html, css, dart, java, kotlin or python
+Random code projects with javascript, html, css, dart or kotlin for learning.

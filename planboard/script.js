@@ -35,7 +35,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   function deleteButton() {
     const buttonDiv = document.createElement("div");
     buttonDiv.classList.add("deleteButton");
-    buttonDiv.innerText = "+";
+    buttonDiv.textContent = "+";
 
     buttonDiv.addEventListener("click", () => {
       if (buttonDiv.parentNode) {
@@ -111,20 +111,20 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     const saveButton = document.querySelector("#save");
     saveButton.addEventListener("click", () => {
-      if (itemContent.innerText.trim().length > 0) {
+      if (itemContent.textContent.trim().length > 0) {
         const listZero = document.querySelectorAll("ul")[0];
-        const result = createNewItem(itemContent.innerText);
+        const result = createNewItem(itemContent.textContent);
         listZero.appendChild(result);
       }
       showNewItemDialog.close();
-      itemContent.innerText = null;
+      itemContent.textContent = null;
       saveToLocalStorage(getData());
     });
 
     const cancelButton = document.querySelector("#cancel");
     cancelButton.addEventListener("click", () => {
       showNewItemDialog.close();
-      itemContent.innerText = null;
+      itemContent.textContent = null;
     });
   });
 
@@ -132,7 +132,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const newEl = document.createElement("li");
     const articleText = document.createElement("article");
 
-    articleText.innerText = itemText.trim();
+    articleText.textContent = itemText.trim();
     articleText.setAttribute("class", "articleText");
     articleText.setAttribute("contenteditable", "true");
 
@@ -154,7 +154,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       let data = [];
       const it = li.getElementsByClassName("articleText");
       for (let i = 0; i < it.length; i++) {
-        data.push(it[i].innerText);
+        data.push(it[i].textContent);
       }
       Object.assign(result, { [idx]: data });
     });

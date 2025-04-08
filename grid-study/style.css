@@ -18,27 +18,22 @@ body {
   background-color: var(--body);
 }
 
-.container {
+.grid-container {
   display: grid;
-  grid-template-columns: 32rem 28rem;
-  grid-auto-rows: 1fr;
-  width: 60rem;
-  margin: 0 auto;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-areas:
+    "grid-item1 grid-item-2 grid-item-3"
+    "grid-item4 grid-item-5 grid-item-6"
+    "grid-item7 grid-item-8 grid-item-9"
+    "grid-item10 grid-item11 grid-item12";
+  grid-gap: 0.5rem;
 }
 
-.leftCard {
+.grid-item {
   background-color: var(--fg_color_left);
   color: var(--bg_color_left);
   border: 1px solid;
   height: 16rem;
-  width: 32rem;
-}
-
-.rightCard {
-  background-color: var(--fg_color_right);
-  color: var(--bg_color_right);
-  border: 1px solid;
-  height: 8rem;
-  width: 24rem;
-  place-self: end;
+  width: 16rem
 }
